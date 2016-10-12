@@ -15,6 +15,8 @@ import model.PieceValueEnum;
  */
 public class LuffaSchackController {
        
+    //Är tvungen att testa att pusha :D :D
+        
         private boolean gameOver;
         private BoardWindow boardWindow;
         private NewGameWindow newGameWindow;
