@@ -39,19 +39,26 @@ public class LuffaSchackController {
         
     }
     
-    public void Aiturn(){
-        
+    public boolean getPlayerTurn(){
+        return gameRules.getPlayerTurn();
         
     }
     
     public void setGameOver(){
-        
+        if(gameRules.getWhiteWin()){
+            boardWindow.alertWindowWinner("White");
+            boardWindow.setTurnGameOver();
+        }
+        else if(gameRules.getBlackWin()){
+            boardWindow.alertWindowWinner("BlackCock");
+            boardWindow.setTurnGameOver();
+        }
     }
     
     public void eventHandlerMenuAction(){
         newGameWindow.display();
         //gameRules.resetBoard();
-        boardWindow.initView();
+        
   
     }
     
@@ -59,12 +66,15 @@ public class LuffaSchackController {
     
         if(newGameWindow.getSelectedColor()!= null && gameRules.setPlayerMove(coordinate)){
             boardWindow.addCircle(gameRules.getPlayerColor(), coordinate);
+            boardWindow.setPlayerTurnColor();
+            setGameOver();
             
         }
         
     }
     
     public void eventHandlerOkButton(){
+        boardWindow.initView();
         gameRules.resetBoard();
         boardWindow.addGameSymbol(newGameWindow.getSelectedColor());
         
@@ -78,7 +88,7 @@ public class LuffaSchackController {
            gameRules.createPlayer(PieceValueEnum.WHITE,!newGameWindow.getWhoGoesFirst()); 
         }
         
-        
+        boardWindow.setPlayerTurnColor();
        //boardWindow.addCircle(newGameWindow.getSelectedColor());
         
     }

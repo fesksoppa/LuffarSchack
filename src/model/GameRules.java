@@ -11,14 +11,18 @@ import javax.swing.text.html.CSS;
  */
 public class GameRules {
     private int[][] board;
-   // ArrayList[][] dalle;
+    private boolean gameOver;
     private final int boardWidth;
     private final int boardHeight;
     private Player player1,player2;
+    private boolean blackWin, whiteWin;
     
     public GameRules(int boardWidth, int boardHeight){
         this.boardHeight = boardHeight;
         this.boardWidth = boardWidth;
+        blackWin=false;
+        whiteWin=false;
+        gameOver=false; 
         
         board=new int[this.boardWidth][this.boardHeight];
          
@@ -28,7 +32,7 @@ public class GameRules {
     
     public boolean setPlayerMove(Point2D coordinate)
     {
-        if(validMove(coordinate)){
+        if(validMove(coordinate) && !gameOver){
             
         
         
@@ -82,6 +86,7 @@ public class GameRules {
         return board[(int)coordinate.getX()][(int)coordinate.getY()] == PieceValueEnum.EMPTY.ordinal(); 
               
     }
+    
             
     
     private void checkWin(){
@@ -110,11 +115,11 @@ public class GameRules {
                  whiteCount=1;
             }
             if(blackCount>=5){
-                System.out.println("BlackCock");
+                blackWin=true;
                 break;
             }
                 else if(whiteCount >=5){
-                System.out.println("WhiteCock");
+                whiteWin=true;
                 break;
             }       
         }
@@ -146,12 +151,13 @@ public class GameRules {
                  whiteCount=1;
             }
             if(blackCount>=5){
-                System.out.println("BlackCock");
+               blackWin=true;
                 break;
             }
                 else if(whiteCount >=5){
-                System.out.println("WhiteCock");
+                whiteWin=true;
                 break;
+                       
             }       
         }
         }
@@ -187,11 +193,11 @@ public class GameRules {
                  whiteCount=1;
             }
             if(blackCount>=5){
-                System.out.println("BlackCock");
+                blackWin=true;
                 break;
             }
                 else if(whiteCount >=5){
-                System.out.println("WhiteCock");
+                whiteWin=true;
                 break;
             }       
         }
@@ -202,7 +208,7 @@ public class GameRules {
        //*************************************************************
         
        
-       whiteCount = 1;
+        whiteCount = 1;
         blackCount =1;
         
       
@@ -227,21 +233,36 @@ public class GameRules {
                  whiteCount=1;
             }
             if(blackCount>=5){
-                System.out.println("BlackCock");
+                blackWin=true;
                 break;
             }
                 else if(whiteCount >=5){
-                System.out.println("WhiteCock");
+                whiteWin=true;
                 break;
             }       
         }
+        }
+        if(whiteWin || blackWin){
+            gameOver=true; 
+            
         }
  
     }
     
     
     
+    public boolean getBlackWin(){
+        return blackWin;
+    }
+    
+    public boolean getWhiteWin(){
+        return whiteWin; 
+    }
+    
     public void resetBoard(){
+        gameOver=false;
+        whiteWin=false;
+        blackWin=false;
         for(int i=0; i<boardWidth ; i++){
             for(int j=0;j<boardHeight;j++){
                 board[i][j] = PieceValueEnum.EMPTY.ordinal();
@@ -250,6 +271,10 @@ public class GameRules {
         }
         player1 = null;
         player2 = null;
+    }
+    
+    public boolean getPlayerTurn(){
+        return player1.getPlayerTurn();
     }
     
     @Override

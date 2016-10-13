@@ -21,8 +21,11 @@ import javafx.stage.Stage;
 import controller.LuffaSchackController;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import model.PieceValueEnum;
+
 
 /**
  *
@@ -35,8 +38,10 @@ public class BoardWindow {
         private LuffaSchackController luffaSchackController;
         private GridPane gameBoard;
         private Point2D coordinate;
-        private HBox playerBox,aiBox;
-     public BoardWindow(Stage primaStage, LuffaSchackController luffaSchackController){
+        private VBox playerBox,aiBox;
+        private Circle gameSymbolP1, gameSymbolP2;
+        
+    public BoardWindow(Stage primaStage, LuffaSchackController luffaSchackController){
          this.luffaSchackController=luffaSchackController;
          this.primaryStage=primaStage;
          this.coordinate=null;
@@ -50,23 +55,24 @@ public class BoardWindow {
         fillGridPane();
         gameBoard.setGridLinesVisible(true);
        
-         
+        gameSymbolP1 = new Circle(20, Color.TRANSPARENT);
+        gameSymbolP2 = new Circle(20, Color.TRANSPARENT); 
         
         playerLabel=new Label("Player");
         playerLabel.setFont(new Font("Arial", 30));
         aiLabel = new Label("Player");
         aiLabel.setFont(new Font("Arial", 30));
         
-        playerBox = new HBox(100);
+        playerBox = new VBox(100);
         playerBox.setPadding(new Insets(50,50,50,50));
         playerBox.setAlignment(Pos.CENTER);
-        playerBox.getChildren().add(playerLabel);
+        playerBox.getChildren().addAll(playerLabel,gameSymbolP1);
         
         
-        aiBox = new HBox(100);
+        aiBox = new VBox(100);
         aiBox.setPadding(new Insets(50,50,50,50));
         aiBox.setAlignment(Pos.CENTER);
-        aiBox.getChildren().add(aiLabel);
+        aiBox.getChildren().addAll(aiLabel, gameSymbolP2);
         
         Menu fileMenu = new Menu();
         fileMenu.setText("File");
@@ -100,6 +106,7 @@ public class BoardWindow {
          Circle circle = new Circle(20);
          if(color == PieceValueEnum.WHITE){
              circle.setFill(Color.WHITE);
+             
          }
          else if(color==PieceValueEnum.BLACK){
             circle.setFill(Color.BLACK);
@@ -137,6 +144,8 @@ public class BoardWindow {
             
           coordinate = new Point2D(colIndex, rowIndex);
           luffaSchackController.eventHandlerPlayerMove(coordinate);
+          
+          
         });
         
         
@@ -144,24 +153,45 @@ public class BoardWindow {
         
        
     }
+    public void setPlayerTurnColor(){
+        if(luffaSchackController.getPlayerTurn()){
+              playerBox.setStyle("-fx-background-color:#00FF00;");
+              aiBox.setStyle("-fx-background-color: transparent;");
+          }
+        else{
+            aiBox.setStyle("-fx-background-color:#00FF00;");
+            playerBox.setStyle("-fx-background-color: transparent;");
+        }
+            
+    }
+    
+    public void setTurnGameOver(){
+        playerBox.setStyle("-fx-background-color: transparent;");
+        aiBox.setStyle("-fx-background-color: transparent;");
+    }
     
     public void addGameSymbol(PieceValueEnum color){
-        Circle gameSymbolP1 = new Circle(20);
-        Circle gameSymbolP2 = new Circle(20);
+       
         
         if(color == PieceValueEnum.WHITE){
              gameSymbolP1.setFill(Color.WHITE);
              gameSymbolP2.setFill(Color.BLACK);
-             
+               
          }
          else if(color==PieceValueEnum.BLACK){
             gameSymbolP1.setFill(Color.BLACK);
             gameSymbolP2.setFill(Color.WHITE);
          }
-        playerBox.getChildren().add(gameSymbolP1);
-        aiBox.getChildren().add(gameSymbolP2);
+        
         
     }
-     
+    
+    public void alertWindowWinner(String winner){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("WINNER!!!");
+        alert.setContentText("The Winner is: " +winner);
+        alert.show();
+    }
+   
      
 }

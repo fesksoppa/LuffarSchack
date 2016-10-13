@@ -26,6 +26,7 @@ public class Player {
         this.turn = !this.turn;
     }
     
+    
     @Override
     public String toString(){
         String info="Tysk   " +circleColor+"   "+ turn; 
