@@ -2,6 +2,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 import javafx.geometry.Point2D;
 import javax.swing.text.html.CSS;
 
@@ -16,6 +17,7 @@ public class GameRules {
     private final int boardHeight;
     private Player player1,player2;
     private boolean blackWin, whiteWin;
+    private Point2D firstWinningCoordinate,lastWinningCoordinate;
     
     public GameRules(int boardWidth, int boardHeight){
         this.boardHeight = boardHeight;
@@ -90,6 +92,8 @@ public class GameRules {
             
     
     private void checkWin(){
+        
+        
         int whiteCount=1, blackCount = 1; 
         
         //*****************************************************************
@@ -103,9 +107,16 @@ public class GameRules {
             else if(whiteCount >=5){  
                 break;
             }
+            else {
+                blackCount=1;
+                whiteCount=1;
+            }
         for(int j=0; j<boardHeight-1; j++){
             if(board[j][i] == 1 && board[j+1][i] == 1  ){
                  whiteCount++;
+                 if(whiteCount==1){
+                     
+                 }
             }
             else if(board[j][i] == 2 && board[j+1][i] == 2  ){
                  blackCount++;
@@ -115,11 +126,20 @@ public class GameRules {
                  whiteCount=1;
             }
             if(blackCount>=5){
+                firstWinningCoordinate =new Point2D(j-3, i);
+                lastWinningCoordinate= new Point2D(j+1,i);
+                
+                System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
+                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
                 blackWin=true;
                 break;
             }
                 else if(whiteCount >=5){
-                whiteWin=true;
+                    firstWinningCoordinate =new Point2D(j-3, i);
+                    lastWinningCoordinate= new Point2D(j+1,i);
+                    System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
+                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
+                    whiteWin=true;
                 break;
             }       
         }
@@ -139,6 +159,11 @@ public class GameRules {
             else if(whiteCount >=5){  
                 break;
             }
+            else {
+                blackCount=1;
+                whiteCount=1;
+            }
+            
         for(int j=0; j<boardHeight-1; j++){
             if(board[i][j] == 1 && board[i][j+1] == 1  ){
                  whiteCount++;
@@ -152,10 +177,20 @@ public class GameRules {
             }
             if(blackCount>=5){
                blackWin=true;
+               firstWinningCoordinate =new Point2D(i, j-3);
+               lastWinningCoordinate= new Point2D(i,j+1);
+                
+                System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
+                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
                 break;
             }
-                else if(whiteCount >=5){
-                whiteWin=true;
+            else if(whiteCount >=5){
+                    firstWinningCoordinate =new Point2D(i,j-3);
+                    lastWinningCoordinate= new Point2D(i,j+1);
+                
+                    System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
+                    System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
+                    whiteWin=true;
                 break;
                        
             }       
@@ -183,25 +218,33 @@ public class GameRules {
             if(board[i][j] == 1 && board[i+1][j+1] == 1 && board[i+2][j+2] == 1
                   && board[i+3][j+3] == 1 && board[i+4][j+4] == 1 ){
                  whiteCount=5;
+                 whiteWin=true;
+                 
+               firstWinningCoordinate =new Point2D(i, j);
+               lastWinningCoordinate= new Point2D(i+4,j+4);
+                
+                System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
+                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
+                 
+                 break;
             }
             else if(board[i][j] == 2 && board[i+1][j+1] == 2 && board[i+2][j+2] == 2
                   && board[i+3][j+3] == 2 && board[i+4][j+4] == 2 ){
                  blackCount=5;
+                 blackWin=true;
+                 
+                firstWinningCoordinate =new Point2D(i, j);
+                lastWinningCoordinate= new Point2D(i+4,j+4);
+                
+                System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
+                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
+                 
+                 break;
             }
-            else {
-                 blackCount=1;
-                 whiteCount=1;
             }
-            if(blackCount>=5){
-                blackWin=true;
-                break;
-            }
-                else if(whiteCount >=5){
-                whiteWin=true;
-                break;
-            }       
+       
         }
-        }
+        
        
        //************************************************************* 
        //               Check Up Rising Winner
@@ -223,23 +266,28 @@ public class GameRules {
             if(board[i][j] == 1 && board[i+1][j-1] == 1 && board[i+2][j-2] == 1
                   && board[i+3][j-3] == 1 && board[i+4][j-4] == 1 ){
                  whiteCount=5;
+                 whiteWin=true;
+                  firstWinningCoordinate =new Point2D(i, j);
+                  lastWinningCoordinate= new Point2D(i+4,j-4);
+                
+                System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
+                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
+                break; 
             }
             else if(board[i][j] == 2 && board[i+1][j-1] == 2 && board[i+2][j-2] == 2
                   && board[i+3][j-3] == 2 && board[i+4][j-4] == 2 ){
                  blackCount=5;
-            }
-            else {
-                 blackCount=1;
-                 whiteCount=1;
-            }
-            if(blackCount>=5){
-                blackWin=true;
+                 blackWin=true;
+                 
+                firstWinningCoordinate =new Point2D(i, j);
+                lastWinningCoordinate= new Point2D(i+4,j-4);
+                
+                
+                System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
+                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
                 break;
             }
-                else if(whiteCount >=5){
-                whiteWin=true;
-                break;
-            }       
+           
         }
         }
         if(whiteWin || blackWin){
@@ -249,7 +297,12 @@ public class GameRules {
  
     }
     
-    
+    public ArrayList<Point2D> getWinningCoordinates(){
+        ArrayList<Point2D> list = new ArrayList<Point2D>();
+        list.add(firstWinningCoordinate);
+        list.add(lastWinningCoordinate);
+        return list;
+    }
     
     public boolean getBlackWin(){
         return blackWin;
@@ -263,6 +316,7 @@ public class GameRules {
         gameOver=false;
         whiteWin=false;
         blackWin=false;
+        
         for(int i=0; i<boardWidth ; i++){
             for(int j=0;j<boardHeight;j++){
                 board[i][j] = PieceValueEnum.EMPTY.ordinal();

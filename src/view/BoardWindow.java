@@ -19,11 +19,16 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import controller.LuffaSchackController;
+import java.util.ArrayList;
+import javafx.geometry.NodeOrientation;
 import javafx.geometry.Point2D;
+import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
+import jdk.nashorn.internal.parser.TokenType;
 import model.PieceValueEnum;
 
 
@@ -40,6 +45,7 @@ public class BoardWindow {
         private Point2D coordinate;
         private VBox playerBox,aiBox;
         private Circle gameSymbolP1, gameSymbolP2;
+        private Line winningLine;
         
     public BoardWindow(Stage primaStage, LuffaSchackController luffaSchackController){
          this.luffaSchackController=luffaSchackController;
@@ -138,6 +144,51 @@ public class BoardWindow {
         
     }
     
+    public void presentWinnerLine(ArrayList<Point2D> list)
+    {
+        
+        double k;
+        
+        k=((list.get(1).getY()-list.get(0).getY())/(list.get(1).getX()-list.get(0).getX()));
+        
+        System.out.println("Lutningen är: " +  k);
+        if(k==0){
+           winningLine= new Line(list.get(0).getX(),list.get(0).getY(), list.get(1).getX()+240,list.get(1).getY());
+          
+        }
+        else if(k==-1)
+        {
+            winningLine= new Line(list.get(0).getX(),list.get(0).getY(), list.get(1).getX()+240,list.get(1).getY()-240);
+            GridPane.setValignment(winningLine, VPos.BOTTOM);
+          
+        }
+        else if(k==1)
+        {
+            winningLine= new Line(list.get(0).getX(),list.get(0).getY(), list.get(1).getX()+240,list.get(1).getY()+240);
+            GridPane.setValignment(winningLine, VPos.TOP);
+        }
+        else
+        {
+            
+          winningLine= new Line(list.get(0).getX(),list.get(0).getY(), list.get(1).getX(),list.get(1).getY()+240);  
+          GridPane.setValignment(winningLine, VPos.BASELINE);
+          GridPane.setHalignment(winningLine, HPos.CENTER);
+          
+          
+        }
+            
+       //System.out.println(gameBoard.localToParent(list.get(0)).getX() + "  " + gameBoard.localToParent(list.get(0)).getY());
+       // System.out.println(gameBoard.localToParent(list.get(1)));
+        
+       // System.out.println("HEEEEJ" + gameBoard.getLayoutX());
+        
+       // winningLine= new Line(list.get(0).getX(),list.get(0).getY(),(list.get(1).getX() - list.get(0).getX())*240   ,list.get(1).getY()); 
+        gameBoard.setConstraints(winningLine,(int)list.get(0).getX(),(int)list.get(0).getY());
+        winningLine.setStrokeWidth(10);
+        winningLine.setStroke(Color.PINK);
+        gameBoard.getChildren().add(winningLine);
+        //
+    }  
     private void addPane(int colIndex, int rowIndex){
         Pane pane = new Pane();
         pane.setOnMouseClicked(e -> {
