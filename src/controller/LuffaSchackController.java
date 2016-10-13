@@ -57,8 +57,7 @@ public class LuffaSchackController {
     
     public void eventHandlerPlayerMove(Point2D coordinate){
     
-        if(newGameWindow.getSelectedColor()!= null){
-            gameRules.setPlayerMove(coordinate);
+        if(newGameWindow.getSelectedColor()!= null && gameRules.setPlayerMove(coordinate)){
             boardWindow.addCircle(gameRules.getPlayerColor(), coordinate);
             
         }

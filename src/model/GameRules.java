@@ -26,7 +26,7 @@ public class GameRules {
     
     //gör en till konstruktor med AI som in
     
-    public void setPlayerMove(Point2D coordinate)
+    public boolean setPlayerMove(Point2D coordinate)
     {
         if(validMove(coordinate)){
             
@@ -44,8 +44,9 @@ public class GameRules {
 
 
             checkWin();
+            return true;
         }    
-        
+        return false; 
     }
     
     public PieceValueEnum getPlayerColor(){
