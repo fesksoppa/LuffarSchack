@@ -30,6 +30,8 @@ import model.PieceValueEnum;
         private PieceValueEnum selectedColor; 
         private boolean whoGoesFirst;
         private LuffaSchackController luffaSchackController;
+        private int selectedBoardSize;
+        
      public NewGameWindow(LuffaSchackController luffaSchackController){
          this.luffaSchackController=luffaSchackController;
      } 
@@ -42,7 +44,8 @@ import model.PieceValueEnum;
        BorderPane windowLayout = new BorderPane();
        
        Label labelColor = new Label("Select color");
-       Label labelTurn = new Label("Select player to begin");
+       Label labelTurn = new Label("\nSelect player to begin");
+       Label labelBoardSize = new Label("\nSelect board size");
        
        Button ok = new Button("OK");
        ok.setOnAction(e ->{
@@ -68,24 +71,36 @@ import model.PieceValueEnum;
        buttonMenu.getChildren().addAll(ok, cancel);
        
        windowLayout.setBottom(buttonMenu);
-        //Creating of RadioButtons
-        //*********************************************************
+       //********************************************************************
+      //              Creating of RadioButtons
+      //*********************************************************
+      
        selectedColor=PieceValueEnum.WHITE; // default value
        whoGoesFirst=true; 
+       selectedBoardSize=15;
+       
        ToggleGroup groupColor = new ToggleGroup();
        ToggleGroup groupWhoGoesFirst = new ToggleGroup();
-       
+       ToggleGroup groupBoardSize = new ToggleGroup();
        
        RadioButton rbWhite = new RadioButton("White");
        RadioButton rbBlack = new RadioButton("Black");
        RadioButton rbPlayer = new RadioButton("Player1");
        RadioButton rbPlayer2 = new RadioButton("Player2");
+       RadioButton rbBoardSize15x15 = new RadioButton("15x15");
+       RadioButton rbBoardSize12x12 = new RadioButton("12x12");
+       
        rbWhite.setToggleGroup(groupColor);
        rbWhite.setSelected(true);
        rbBlack.setToggleGroup(groupColor);
+       
        rbPlayer.setToggleGroup(groupWhoGoesFirst);
        rbPlayer.setSelected(true);
        rbPlayer2.setToggleGroup(groupWhoGoesFirst);
+       
+       rbBoardSize15x15.setToggleGroup(groupBoardSize);
+       rbBoardSize15x15.setSelected(true);
+       rbBoardSize12x12.setToggleGroup(groupBoardSize);
    
          
      groupColor.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
@@ -121,11 +136,29 @@ import model.PieceValueEnum;
                 }
             }
         });
+     //*************************************************************************
+     groupBoardSize.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+         
+      @Override
+      public void changed(ObservableValue<? extends Toggle> ov,Toggle old_toggle, Toggle new_toggle){
+          RadioButton check= (RadioButton)new_toggle.getToggleGroup().getSelectedToggle();
+                
+                if(check.getText().equalsIgnoreCase("15x15")){
+                    selectedBoardSize=15;
+                    
+                }
+                else if(check.getText().equalsIgnoreCase("12x12")){
+                    selectedBoardSize=12; 
+                }
+            }
+        });
+     
      
      
      
        //************************************************************
-       layout.getChildren().addAll(labelColor, rbWhite,rbBlack, labelTurn, rbPlayer, rbPlayer2);
+       layout.getChildren().addAll(labelColor, rbWhite,rbBlack, labelTurn,
+               rbPlayer, rbPlayer2,labelBoardSize,rbBoardSize15x15,rbBoardSize12x12);
        windowLayout.setCenter(layout);
        
        Scene scene = new Scene(windowLayout);
@@ -136,6 +169,9 @@ import model.PieceValueEnum;
        
        
    } 
+   public int getBoardSize(){
+       return selectedBoardSize; 
+   }
    
    public PieceValueEnum getSelectedColor(){
         return selectedColor; 

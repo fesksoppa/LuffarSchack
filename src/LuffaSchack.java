@@ -39,7 +39,12 @@ public class LuffaSchack extends Application {
     
     @Override
     public void start(Stage primaryStage) { 
+        
+        
         LuffaSchackController luffarSchackController = new LuffaSchackController(primaryStage);
+        
+        
+        
         
     }
     

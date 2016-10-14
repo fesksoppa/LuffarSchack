@@ -34,10 +34,12 @@ public class GameRules {
     
     public boolean setPlayerMove(Point2D coordinate)
     {
+        //System.out.println(coordinate.getX()+ "  " + coordinate.getY());
+        
         if(validMove(coordinate) && !gameOver){
             
         
-        
+        System.out.println(player1);
             if(player1.getPlayerTurn())
             {
               board[(int)coordinate.getX()][(int)coordinate.getY()]=player1.getCircleColor().ordinal();

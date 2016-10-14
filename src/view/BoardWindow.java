@@ -46,6 +46,7 @@ public class BoardWindow {
         private VBox playerBox,aiBox;
         private Circle gameSymbolP1, gameSymbolP2;
         private Line winningLine;
+        private Menu fileMenu,helpMenu;
         
     public BoardWindow(Stage primaStage, LuffaSchackController luffaSchackController){
          this.luffaSchackController=luffaSchackController;
@@ -58,8 +59,11 @@ public class BoardWindow {
         BorderPane theGame = new BorderPane();
         gameBoard = new GridPane();
         gameBoard.setPadding(new Insets(10,1,1,10));
-        fillGridPane();
         gameBoard.setGridLinesVisible(true);
+        
+        //*********************************************************************
+        //                      Label & Circle Code
+        //*********************************************************************
        
         gameSymbolP1 = new Circle(20, Color.TRANSPARENT);
         gameSymbolP2 = new Circle(20, Color.TRANSPARENT); 
@@ -80,32 +84,60 @@ public class BoardWindow {
         aiBox.setAlignment(Pos.CENTER);
         aiBox.getChildren().addAll(aiLabel, gameSymbolP2);
         
-        Menu fileMenu = new Menu();
+        
+        //**********************************************************************
+        //                          Menu Code
+        //*********************************************************************
+        fileMenu = new Menu();
         fileMenu.setText("File");
+        
+        helpMenu = new Menu();
+        helpMenu.setText("Help");
+        
         
         MenuItem newGameItem = new MenuItem();
         newGameItem.setText("New Game");
-        fileMenu.getItems().add(newGameItem);
+        
+        
+        MenuItem pauseItem = new MenuItem();
+        pauseItem.setText("Pause game");
+        fileMenu.getItems().addAll(newGameItem,pauseItem);
+        
+        MenuItem aboutItem = new MenuItem();
+        aboutItem.setText("About");
+       
+        
+        MenuItem rulesItem = new MenuItem();
+        rulesItem.setText("Rules");
+        helpMenu.getItems().addAll(rulesItem,aboutItem);
+        
+        aboutItem.setOnAction(e->alertWindowMenu("About","Kicken & GrahnFän\nkristka@kth.se & erigra@kth.se" ));
+        rulesItem.setOnAction(e->alertWindowMenu("Rules",
+          getRules()));
+        pauseItem.setOnAction(e -> alertWindowMenu("Pause","Click OK to resume the game"));
+        
         
         newGameItem.setOnAction(e ->luffaSchackController.eventHandlerMenuAction());
         
+        
+        
         MenuBar gameMenuBar = new MenuBar();
-        gameMenuBar.getMenus().add(fileMenu);
+        gameMenuBar.getMenus().addAll(fileMenu,helpMenu);
         
-        
+        //********************************************************************
+        //                      BorderPane Code
+        //********************************************************************
         
         theGame.setTop(gameMenuBar);
         theGame.setCenter(gameBoard);
         theGame.setLeft(playerBox);
         theGame.setRight(aiBox);
         
-        Scene scen1 = new Scene(theGame);
+        Scene scen1 = new Scene(theGame, 1150,800);
         
         primaryStage.setScene(scen1);
-        primaryStage.setResizable(false);
-        primaryStage.show();
-           
-        
+        primaryStage.setResizable(true);
+        primaryStage.show();   
     }
      
      public void addCircle(PieceValueEnum color, Point2D coordinate){
@@ -122,9 +154,9 @@ public class BoardWindow {
         GridPane.setHalignment(circle, HPos.CENTER);  
      }
      
-    public void fillGridPane(){
-        int noRowAndColumn = 15;
-        
+    public void fillGridPane(int boardSize){
+        int noRowAndColumn = boardSize;
+            System.out.println(noRowAndColumn);
         gameBoard.setStyle("-fx-background-color:#006400;");
         
         
@@ -141,7 +173,17 @@ public class BoardWindow {
                 addPane(i,j);
             }
         }
-        
+       
+    }
+    private void addPane(int colIndex, int rowIndex){
+        Pane pane = new Pane();
+        pane.setOnMouseClicked(e -> {
+          coordinate = new Point2D(colIndex, rowIndex);
+          luffaSchackController.eventHandlerPlayerMove(coordinate);
+        });
+
+        gameBoard.add(pane, colIndex, rowIndex);
+  
     }
     
     public void presentWinnerLine(ArrayList<Point2D> list)
@@ -150,11 +192,9 @@ public class BoardWindow {
         double k;
         
         k=((list.get(1).getY()-list.get(0).getY())/(list.get(1).getX()-list.get(0).getX()));
-        
-        System.out.println("Lutningen är: " +  k);
+
         if(k==0){
-           winningLine= new Line(list.get(0).getX(),list.get(0).getY(), list.get(1).getX()+240,list.get(1).getY());
-          
+           winningLine= new Line(list.get(0).getX(),list.get(0).getY(), list.get(1).getX()+240,list.get(1).getY()); 
         }
         else if(k==-1)
         {
@@ -168,44 +208,21 @@ public class BoardWindow {
             GridPane.setValignment(winningLine, VPos.TOP);
         }
         else
-        {
-            
+        {  
           winningLine= new Line(list.get(0).getX(),list.get(0).getY(), list.get(1).getX(),list.get(1).getY()+240);  
           GridPane.setValignment(winningLine, VPos.BASELINE);
-          GridPane.setHalignment(winningLine, HPos.CENTER);
-          
-          
+          GridPane.setHalignment(winningLine, HPos.CENTER); 
         }
-            
-       //System.out.println(gameBoard.localToParent(list.get(0)).getX() + "  " + gameBoard.localToParent(list.get(0)).getY());
-       // System.out.println(gameBoard.localToParent(list.get(1)));
-        
-       // System.out.println("HEEEEJ" + gameBoard.getLayoutX());
-        
-       // winningLine= new Line(list.get(0).getX(),list.get(0).getY(),(list.get(1).getX() - list.get(0).getX())*240   ,list.get(1).getY()); 
+           
         gameBoard.setConstraints(winningLine,(int)list.get(0).getX(),(int)list.get(0).getY());
         winningLine.setStrokeWidth(10);
         winningLine.setStroke(Color.PINK);
         gameBoard.getChildren().add(winningLine);
-        //
-    }  
-    private void addPane(int colIndex, int rowIndex){
-        Pane pane = new Pane();
-        pane.setOnMouseClicked(e -> {
-            
-          coordinate = new Point2D(colIndex, rowIndex);
-          luffaSchackController.eventHandlerPlayerMove(coordinate);
-          
-          
-        });
-        
-        
-        gameBoard.add(pane, colIndex, rowIndex);
-        
        
-    }
+    }  
+    
     public void setPlayerTurnColor(){
-        if(luffaSchackController.getPlayerTurn()){
+        if(luffaSchackController.getPlayerTurn()){ // Använd GameRules istället
               playerBox.setStyle("-fx-background-color:#00FF00;");
               aiBox.setStyle("-fx-background-color: transparent;");
           }
@@ -236,6 +253,14 @@ public class BoardWindow {
         
         
     }
+    public void alertWindowMenu(String title, String content){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle(title);
+        alert.setHeaderText("LuffaSchack Nigga");
+        alert.setContentText(content);
+        alert.show();
+        
+    }
     
     public void alertWindowWinner(String winner){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -243,6 +268,20 @@ public class BoardWindow {
         alert.setContentText("The Winner is: " +winner);
         alert.show();
     }
-   
+    
+    private String getRules(){
+        String rules="Luffarschack is a board game for two players who take turns in putting "
+                + "black and white stones on the board. Each players' goal is to"
+                + " create an unbroken row of five stones horizontally, vertically,"
+                + " or diagonally. The size of the board can be 15x15 or 12x12 squares"+
+                "and the color of the stones is black and white.\n" +"The game ends as a draw "
+                + "if the board is fully covered with stones and none of the players "
+                + "has managed to get five in a row. A player who makes an"
+                + " unbroken row of exactly five stones in any direction "
+                + "wins the game";
+
+                
+        return rules;
+    }
      
 }

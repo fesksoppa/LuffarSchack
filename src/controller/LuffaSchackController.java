@@ -26,7 +26,7 @@ public class LuffaSchackController {
     public LuffaSchackController(Stage primaryStage){
         boardWindow = new BoardWindow(primaryStage, this);
         newGameWindow= new NewGameWindow(this); 
-         gameRules= new GameRules(15,15);
+        
         
         this.gameOver=false; 
         initGame();
@@ -51,7 +51,7 @@ public class LuffaSchackController {
             boardWindow.presentWinnerLine(gameRules.getWinningCoordinates());
         }
         else if(gameRules.getBlackWin()){
-            boardWindow.alertWindowWinner("BlackCock");
+            boardWindow.alertWindowWinner("Black");
             boardWindow.setTurnGameOver();
             boardWindow.presentWinnerLine(gameRules.getWinningCoordinates());
         }
@@ -60,13 +60,13 @@ public class LuffaSchackController {
     
     public void eventHandlerMenuAction(){
         newGameWindow.display();
-        //gameRules.resetBoard();
+        
         
   
     }
     
     public void eventHandlerPlayerMove(Point2D coordinate){
-    
+      
         if(newGameWindow.getSelectedColor()!= null && gameRules.setPlayerMove(coordinate)){
             boardWindow.addCircle(gameRules.getPlayerColor(), coordinate);
             boardWindow.setPlayerTurnColor();
@@ -76,12 +76,19 @@ public class LuffaSchackController {
         
     }
     
-    
+    // creates gameRules and players 
     
     public void eventHandlerOkButton(){
+        
         boardWindow.initView();
-        gameRules.resetBoard();
+        
         boardWindow.addGameSymbol(newGameWindow.getSelectedColor());
+        
+        gameRules= new GameRules(newGameWindow.getBoardSize(),
+                newGameWindow.getBoardSize());
+        
+        gameRules.resetBoard();
+        
         
         
         if(newGameWindow.getSelectedColor().ordinal()==1){
@@ -94,7 +101,8 @@ public class LuffaSchackController {
         }
         
         boardWindow.setPlayerTurnColor();
-       //boardWindow.addCircle(newGameWindow.getSelectedColor());
+        
+        boardWindow.fillGridPane(newGameWindow.getBoardSize());
         
     }
 }
