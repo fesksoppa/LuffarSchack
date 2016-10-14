@@ -17,7 +17,7 @@ public class LuffaSchackController {
        
     //Är tvungen att testa att pusha :D :D
         
-        private boolean gameOver;
+      //  private boolean gameOver;
         private BoardWindow boardWindow;
         private NewGameWindow newGameWindow;
         private GameRules gameRules;
@@ -28,7 +28,7 @@ public class LuffaSchackController {
         newGameWindow= new NewGameWindow(this); 
         
         
-        this.gameOver=false; 
+       // this.gameOver=false; 
         initGame();
         
     }
@@ -46,14 +46,13 @@ public class LuffaSchackController {
     
     public void setGameOver(){
         if(gameRules.getWhiteWin()){
-            boardWindow.alertWindowWinner("WINNER!!!","The Winner is: White");
+            boardWindow.playWinAnimation(gameRules.getWinningCoordinates(),"White");
             boardWindow.setTurnGameOver();
-            boardWindow.presentWinnerLine(gameRules.getWinningCoordinates());
+           
         }
         else if(gameRules.getBlackWin()){
-            boardWindow.alertWindowWinner("WINNER!!!","The Winner is: Black");
+            boardWindow.playWinAnimation(gameRules.getWinningCoordinates(), "Black");
             boardWindow.setTurnGameOver();
-            boardWindow.presentWinnerLine(gameRules.getWinningCoordinates());
         }
         else if(gameRules.checkDraw()){
             boardWindow.alertWindowWinner("DRAW!!!!" ,"Draw");
@@ -65,9 +64,7 @@ public class LuffaSchackController {
     
     public void eventHandlerMenuAction(){
         newGameWindow.display();
-        
-        
-  
+
     }
     
     public void eventHandlerPlayerMove(Point2D coordinate){
@@ -77,8 +74,7 @@ public class LuffaSchackController {
             boardWindow.setPlayerTurnColor();
             setGameOver();
             
-        }
-        
+        } 
     }
     
     // creates gameRules and players 

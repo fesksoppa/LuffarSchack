@@ -20,6 +20,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import controller.LuffaSchackController;
 import java.util.ArrayList;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
@@ -27,7 +30,9 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Line;
+import javafx.util.Duration;
 import jdk.nashorn.internal.parser.TokenType;
 import model.PieceValueEnum;
 
@@ -136,7 +141,7 @@ public class BoardWindow {
         Scene scen1 = new Scene(theGame, 1150,800);
         
         primaryStage.setScene(scen1);
-        primaryStage.setResizable(true);
+        primaryStage.setResizable(false);
         primaryStage.show();   
     }
      
@@ -184,42 +189,54 @@ public class BoardWindow {
 
         gameBoard.add(pane, colIndex, rowIndex);
   
-    }
+    } 
     
-    public void presentWinnerLine(ArrayList<Point2D> list)
-    {
-        
-        double k;
-        
+    public void playWinAnimation(ArrayList<Point2D> list, String winner){
+        double k, endX = 0, endY=0;
+        winningLine= new Line(list.get(0).getX(),list.get(0).getY(),list.get(0).getX(),list.get(0).getY()); 
         k=((list.get(1).getY()-list.get(0).getY())/(list.get(1).getX()-list.get(0).getX()));
 
-        if(k==0){
-           winningLine= new Line(list.get(0).getX(),list.get(0).getY(), list.get(1).getX()+240,list.get(1).getY()); 
+        if(k==0){ 
+            endX= list.get(1).getX()+240;
+            endY= list.get(1).getY();
         }
         else if(k==-1)
         {
-            winningLine= new Line(list.get(0).getX(),list.get(0).getY(), list.get(1).getX()+240,list.get(1).getY()-240);
+            endX= list.get(1).getX()+240;
+            endY= list.get(1).getY()-240;
             GridPane.setValignment(winningLine, VPos.BOTTOM);
           
         }
         else if(k==1)
         {
-            winningLine= new Line(list.get(0).getX(),list.get(0).getY(), list.get(1).getX()+240,list.get(1).getY()+240);
+            endX=list.get(1).getX()+240;
+            endY=list.get(1).getY()+240;
             GridPane.setValignment(winningLine, VPos.TOP);
         }
         else
-        {  
-          winningLine= new Line(list.get(0).getX(),list.get(0).getY(), list.get(1).getX(),list.get(1).getY()+240);  
+        {   
+          endX=list.get(1).getX();
+          endY=list.get(1).getY()+240;
           GridPane.setValignment(winningLine, VPos.BASELINE);
           GridPane.setHalignment(winningLine, HPos.CENTER); 
         }
-           
+        
         gameBoard.setConstraints(winningLine,(int)list.get(0).getX(),(int)list.get(0).getY());
         winningLine.setStrokeWidth(10);
         winningLine.setStroke(Color.PINK);
         gameBoard.getChildren().add(winningLine);
-       
-    }  
+        
+        
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(2),
+        new KeyValue(winningLine.endXProperty(),endX),
+        new KeyValue(winningLine.endYProperty(),endY)));
+        
+        timeline.play();
+        timeline.setOnFinished(e -> alertWindowWinner("WINNER!!!","The Winner is: "+ winner));
+        
+        
+    }
     
     public void setPlayerTurnColor(){
         if(luffaSchackController.getPlayerTurn()){ // Använd GameRules istället

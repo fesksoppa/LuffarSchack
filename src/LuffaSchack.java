@@ -43,8 +43,7 @@ public class LuffaSchack extends Application {
         
         LuffaSchackController luffarSchackController = new LuffaSchackController(primaryStage);
         
-        
-        
+
     }
     
     

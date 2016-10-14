@@ -320,7 +320,6 @@ public class GameRules {
         
         return noOfMoves == boardHeight*boardWidth; 
     }
-    
     public void resetBoard(){
         gameOver=false;
         whiteWin=false;
