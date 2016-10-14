@@ -28,11 +28,14 @@ import javafx.geometry.Point2D;
 import javafx.geometry.VPos;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.CubicCurve;
 import javafx.scene.shape.Line;
 import javafx.util.Duration;
+import javax.swing.text.Element;
+import javax.swing.text.html.ImageView;
 import jdk.nashorn.internal.parser.TokenType;
 import model.PieceValueEnum;
 
@@ -41,7 +44,7 @@ import model.PieceValueEnum;
  *
  * @author Krist 
  */
-public class BoardWindow {
+public class BoardWindow extends BorderPane{
         
         private Stage primaryStage;
         private Label player1Label, player2Label;
@@ -53,18 +56,22 @@ public class BoardWindow {
         private Line winningLine;
         private Menu fileMenu,helpMenu;
         
-    public BoardWindow(Stage primaStage, LuffaSchackController luffaSchackController){
-         this.luffaSchackController=luffaSchackController;
-         this.primaryStage=primaStage;
+    public BoardWindow(){
+         
          this.coordinate=null;
      }
+    
+    public void setController(LuffaSchackController luffaSchackController){
+        this.luffaSchackController=luffaSchackController;
+    }
      
      public void initView(){
          
-        BorderPane theGame = new BorderPane();
         gameBoard = new GridPane();
         gameBoard.setPadding(new Insets(10,1,1,10));
         gameBoard.setGridLinesVisible(true);
+        
+        
         
         //*********************************************************************
         //                      Label & Circle Code
@@ -133,16 +140,11 @@ public class BoardWindow {
         //                      BorderPane Code
         //********************************************************************
         
-        theGame.setTop(gameMenuBar);
-        theGame.setCenter(gameBoard);
-        theGame.setLeft(playerBox);
-        theGame.setRight(aiBox);
-        
-        Scene scen1 = new Scene(theGame, 1150,800);
-        
-        primaryStage.setScene(scen1);
-        primaryStage.setResizable(false);
-        primaryStage.show();   
+        this.setTop(gameMenuBar);
+        this.setCenter(gameBoard);
+        this.setLeft(playerBox);
+        this.setRight(aiBox);
+           
     }
      
      public void addCircle(PieceValueEnum color, Point2D coordinate){
@@ -182,6 +184,7 @@ public class BoardWindow {
     }
     private void addPane(int colIndex, int rowIndex){
         Pane pane = new Pane();
+      
         pane.setOnMouseClicked(e -> {
           coordinate = new Point2D(colIndex, rowIndex);
           luffaSchackController.eventHandlerPlayerMove(coordinate);

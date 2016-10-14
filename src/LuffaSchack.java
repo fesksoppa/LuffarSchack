@@ -12,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -27,6 +29,7 @@ import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import view.BoardWindow;
 import view.NewGameWindow;
 
 /**
@@ -38,11 +41,28 @@ public class LuffaSchack extends Application {
       
     
     @Override
-    public void start(Stage primaryStage) { 
+    public void start(Stage primaryStage) {
         
         
-        LuffaSchackController luffarSchackController = new LuffaSchackController(primaryStage);
         
+        BoardWindow boardWindow = new BoardWindow();
+        NewGameWindow newGameWindow = new NewGameWindow();
+        LuffaSchackController luffarSchackController = new LuffaSchackController(boardWindow,newGameWindow);
+        
+        
+        ImageView image = new ImageView(new Image(getClass().getResourceAsStream("Luffarschackimage.jpg")));
+        image.setRotate(-90);
+        boardWindow.setCenter(image);
+        boardWindow.setLeft(null);
+        boardWindow.setRight(null);
+        
+       
+        
+        Scene scen1 = new Scene(boardWindow, 1150,800);
+        
+        primaryStage.setScene(scen1);
+        primaryStage.setResizable(false);
+        primaryStage.show();
 
     }
     

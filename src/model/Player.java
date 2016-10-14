@@ -7,7 +7,8 @@ package model;
  */
 public class Player {
     private boolean turn; 
-    private PieceValueEnum circleColor;
+    private final PieceValueEnum circleColor;
+    
     
     public Player(PieceValueEnum cirleColor, boolean turn){
         this.turn = turn;
@@ -29,8 +30,7 @@ public class Player {
     
     @Override
     public String toString(){
-        String info="Tysk   " +circleColor+"   "+ turn; 
-        
+        String info="Player: " +circleColor+" & "+ turn; 
         return info;
     }
 }

@@ -118,9 +118,6 @@ public class GameRules {
         for(int j=0; j<boardHeight-1; j++){
             if(board[j][i] == 1 && board[j+1][i] == 1  ){
                  whiteCount++;
-                 if(whiteCount==1){
-                     
-                 }
             }
             else if(board[j][i] == 2 && board[j+1][i] == 2  ){
                  blackCount++;
@@ -132,17 +129,12 @@ public class GameRules {
             if(blackCount>=5){
                 firstWinningCoordinate =new Point2D(j-3, i);
                 lastWinningCoordinate= new Point2D(j+1,i);
-                
-                System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
-                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
                 blackWin=true;
                 break;
             }
                 else if(whiteCount >=5){
                     firstWinningCoordinate =new Point2D(j-3, i);
                     lastWinningCoordinate= new Point2D(j+1,i);
-                    System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
-                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
                     whiteWin=true;
                 break;
             }       
@@ -183,18 +175,12 @@ public class GameRules {
                blackWin=true;
                firstWinningCoordinate =new Point2D(i, j-3);
                lastWinningCoordinate= new Point2D(i,j+1);
-                
-                System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
-                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
-                break;
+               break;
             }
             else if(whiteCount >=5){
-                    firstWinningCoordinate =new Point2D(i,j-3);
-                    lastWinningCoordinate= new Point2D(i,j+1);
-                
-                    System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
-                    System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
-                    whiteWin=true;
+                firstWinningCoordinate =new Point2D(i,j-3);
+                lastWinningCoordinate= new Point2D(i,j+1);
+                whiteWin=true;
                 break;
                        
             }       
@@ -220,33 +206,22 @@ public class GameRules {
             }
         for(int j=0; j<boardHeight-4; j++){
             if(board[i][j] == 1 && board[i+1][j+1] == 1 && board[i+2][j+2] == 1
-                  && board[i+3][j+3] == 1 && board[i+4][j+4] == 1 ){
-                 whiteCount=5;
-                 whiteWin=true;
-                 
+               && board[i+3][j+3] == 1 && board[i+4][j+4] == 1 ){
+               whiteCount=5;
+               whiteWin=true;
                firstWinningCoordinate =new Point2D(i, j);
                lastWinningCoordinate= new Point2D(i+4,j+4);
-                
-                System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
-                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
-                 
-                 break;
+               break;
             }
             else if(board[i][j] == 2 && board[i+1][j+1] == 2 && board[i+2][j+2] == 2
-                  && board[i+3][j+3] == 2 && board[i+4][j+4] == 2 ){
-                 blackCount=5;
-                 blackWin=true;
-                 
+                && board[i+3][j+3] == 2 && board[i+4][j+4] == 2 ){
+                blackCount=5;
+                blackWin=true;
                 firstWinningCoordinate =new Point2D(i, j);
                 lastWinningCoordinate= new Point2D(i+4,j+4);
-                
-                System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
-                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
-                 
-                 break;
+                break;
             }
             }
-       
         }
         
        
@@ -268,27 +243,19 @@ public class GameRules {
             }
         for(int j=4; j<boardHeight; j++){
             if(board[i][j] == 1 && board[i+1][j-1] == 1 && board[i+2][j-2] == 1
-                  && board[i+3][j-3] == 1 && board[i+4][j-4] == 1 ){
-                 whiteCount=5;
-                 whiteWin=true;
-                  firstWinningCoordinate =new Point2D(i, j);
-                  lastWinningCoordinate= new Point2D(i+4,j-4);
-                
-                System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
-                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
+                && board[i+3][j-3] == 1 && board[i+4][j-4] == 1 ){
+                whiteCount=5;
+                whiteWin=true;
+                firstWinningCoordinate =new Point2D(i, j);
+                lastWinningCoordinate= new Point2D(i+4,j-4);
                 break; 
             }
             else if(board[i][j] == 2 && board[i+1][j-1] == 2 && board[i+2][j-2] == 2
-                  && board[i+3][j-3] == 2 && board[i+4][j-4] == 2 ){
-                 blackCount=5;
-                 blackWin=true;
-                 
+                && board[i+3][j-3] == 2 && board[i+4][j-4] == 2 ){
+                blackCount=5;
+                blackWin=true;
                 firstWinningCoordinate =new Point2D(i, j);
                 lastWinningCoordinate= new Point2D(i+4,j-4);
-                
-                
-                System.out.println("First: " + firstWinningCoordinate.getX()+ "," + firstWinningCoordinate.getY());
-                System.out.println("LastBlackCockt: " + lastWinningCoordinate.getX()+ "," + lastWinningCoordinate.getY());
                 break;
             }
            

@@ -1,4 +1,3 @@
-
 package view;
 
 import java.util.Observable;
@@ -26,15 +25,19 @@ import model.PieceValueEnum;
  *
  * @author Krist 
  */
-    public class NewGameWindow {
-        private PieceValueEnum selectedColor; 
-        private boolean whoGoesFirst;
-        private LuffaSchackController luffaSchackController;
-        private int selectedBoardSize;
+
+
+ public class NewGameWindow {
+     
+    private PieceValueEnum selectedColor; 
+    private boolean whoGoesFirst;
+    private LuffaSchackController luffaSchackController;
+    private int selectedBoardSize;
         
-     public NewGameWindow(LuffaSchackController luffaSchackController){
-         this.luffaSchackController=luffaSchackController;
-     } 
+
+    public void setController(LuffaSchackController luffaSchackController){
+        this.luffaSchackController=luffaSchackController;
+    }
     
    public void display(){
        Stage newGameWindow = new Stage();
@@ -76,8 +79,8 @@ import model.PieceValueEnum;
       //*********************************************************
       
        selectedColor=PieceValueEnum.WHITE; // default value
-       whoGoesFirst=true; 
-       selectedBoardSize=15;
+       whoGoesFirst=true; //default value
+       selectedBoardSize=15; // default value
        
        ToggleGroup groupColor = new ToggleGroup();
        ToggleGroup groupWhoGoesFirst = new ToggleGroup();
@@ -102,9 +105,13 @@ import model.PieceValueEnum;
        rbBoardSize15x15.setSelected(true);
        rbBoardSize12x12.setToggleGroup(groupBoardSize);
    
-         
+    //*************************************************************************
+    //                      Color Toggle
+    //************************************************************************  
      groupColor.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
-         
+    
+        
+       
       @Override
       public void changed(ObservableValue<? extends Toggle> ov,Toggle old_toggle, Toggle new_toggle){
           RadioButton check= (RadioButton)new_toggle.getToggleGroup().getSelectedToggle();
@@ -119,7 +126,9 @@ import model.PieceValueEnum;
                 }
             }
         });
-//***************************************************************************
+    //*************************************************************************
+    //                      Who Goes First Toggle
+    //************************************************************************
      groupWhoGoesFirst.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
          
       @Override
@@ -136,7 +145,10 @@ import model.PieceValueEnum;
                 }
             }
         });
-     //*************************************************************************
+    //*************************************************************************
+    //                      Board Size Toggle
+    //************************************************************************
+
      groupBoardSize.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
          
       @Override
@@ -154,9 +166,11 @@ import model.PieceValueEnum;
         });
      
      
+    //*************************************************************************
+    //                   Scene & Stage  
+    //************************************************************************
      
      
-       //************************************************************
        layout.getChildren().addAll(labelColor, rbWhite,rbBlack, labelTurn,
                rbPlayer, rbPlayer2,labelBoardSize,rbBoardSize15x15,rbBoardSize12x12);
        windowLayout.setCenter(layout);

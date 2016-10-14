@@ -14,25 +14,20 @@ import model.PieceValueEnum;
  * @author Krist 
  */
 public class LuffaSchackController {
-       
-    //Är tvungen att testa att pusha :D :D
-        
       //  private boolean gameOver;
         private BoardWindow boardWindow;
         private NewGameWindow newGameWindow;
         private GameRules gameRules;
         
     
-    public LuffaSchackController(Stage primaryStage){
-        boardWindow = new BoardWindow(primaryStage, this);
-        newGameWindow= new NewGameWindow(this); 
-        
-        
-       // this.gameOver=false; 
-        initGame();
+    public LuffaSchackController(BoardWindow boardWindow, NewGameWindow newGameWindow){
+       this.boardWindow =boardWindow; 
+       this.newGameWindow=newGameWindow; 
+       boardWindow.setController(this);
+       newGameWindow.setController(this);
+       initGame();
         
     }
-    
     
     public void initGame(){
         boardWindow.initView();
