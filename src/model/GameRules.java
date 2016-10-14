@@ -18,6 +18,7 @@ public class GameRules {
     private Player player1,player2;
     private boolean blackWin, whiteWin;
     private Point2D firstWinningCoordinate,lastWinningCoordinate;
+    private static int noOfMoves;
     
     public GameRules(int boardWidth, int boardHeight){
         this.boardHeight = boardHeight;
@@ -25,6 +26,7 @@ public class GameRules {
         blackWin=false;
         whiteWin=false;
         gameOver=false; 
+        noOfMoves=0;
         
         board=new int[this.boardWidth][this.boardHeight];
          
@@ -50,8 +52,8 @@ public class GameRules {
                 setTurn();
             }
 
-
-            checkWin();
+            noOfMoves++;
+            checkWin(); 
             return true;
         }    
         return false; 
@@ -312,6 +314,11 @@ public class GameRules {
     
     public boolean getWhiteWin(){
         return whiteWin; 
+    }
+    
+    public boolean checkDraw(){
+        
+        return noOfMoves == boardHeight*boardWidth; 
     }
     
     public void resetBoard(){

@@ -39,7 +39,7 @@ import model.PieceValueEnum;
 public class BoardWindow {
         
         private Stage primaryStage;
-        private Label playerLabel, aiLabel;
+        private Label player1Label, player2Label;
         private LuffaSchackController luffaSchackController;
         private GridPane gameBoard;
         private Point2D coordinate;
@@ -68,21 +68,21 @@ public class BoardWindow {
         gameSymbolP1 = new Circle(20, Color.TRANSPARENT);
         gameSymbolP2 = new Circle(20, Color.TRANSPARENT); 
         
-        playerLabel=new Label("Player");
-        playerLabel.setFont(new Font("Arial", 30));
-        aiLabel = new Label("Player");
-        aiLabel.setFont(new Font("Arial", 30));
+        player1Label=new Label("Player1");
+        player1Label.setFont(new Font("Arial", 30));
+        player2Label = new Label("Player2");
+        player2Label.setFont(new Font("Arial", 30));
         
         playerBox = new VBox(100);
         playerBox.setPadding(new Insets(50,50,50,50));
         playerBox.setAlignment(Pos.CENTER);
-        playerBox.getChildren().addAll(playerLabel,gameSymbolP1);
+        playerBox.getChildren().addAll(player1Label,gameSymbolP1);
         
         
         aiBox = new VBox(100);
         aiBox.setPadding(new Insets(50,50,50,50));
         aiBox.setAlignment(Pos.CENTER);
-        aiBox.getChildren().addAll(aiLabel, gameSymbolP2);
+        aiBox.getChildren().addAll(player2Label, gameSymbolP2);
         
         
         //**********************************************************************
@@ -262,10 +262,10 @@ public class BoardWindow {
         
     }
     
-    public void alertWindowWinner(String winner){
+    public void alertWindowWinner(String header,String content){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText("WINNER!!!");
-        alert.setContentText("The Winner is: " +winner);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
         alert.show();
     }
     

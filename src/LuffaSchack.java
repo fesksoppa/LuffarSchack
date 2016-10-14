@@ -45,7 +45,6 @@ public class LuffaSchack extends Application {
         
         
         
-        
     }
     
     

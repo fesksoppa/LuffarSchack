@@ -46,14 +46,19 @@ public class LuffaSchackController {
     
     public void setGameOver(){
         if(gameRules.getWhiteWin()){
-            boardWindow.alertWindowWinner("White");
+            boardWindow.alertWindowWinner("WINNER!!!","The Winner is: White");
             boardWindow.setTurnGameOver();
             boardWindow.presentWinnerLine(gameRules.getWinningCoordinates());
         }
         else if(gameRules.getBlackWin()){
-            boardWindow.alertWindowWinner("Black");
+            boardWindow.alertWindowWinner("WINNER!!!","The Winner is: Black");
             boardWindow.setTurnGameOver();
             boardWindow.presentWinnerLine(gameRules.getWinningCoordinates());
+        }
+        else if(gameRules.checkDraw()){
+            boardWindow.alertWindowWinner("DRAW!!!!" ,"Draw");
+            boardWindow.setTurnGameOver();
+            
         }
         
     }
