@@ -90,6 +90,7 @@ public class LuffaSchackController {
         if(newGameWindow.getSelectedColor().ordinal()==1){
             gameRules.createPlayer(PieceValueEnum.WHITE, newGameWindow.getWhoGoesFirst());
             gameRules.createPlayer(PieceValueEnum.BLACK,!newGameWindow.getWhoGoesFirst());
+            
         }
         else if(newGameWindow.getSelectedColor().ordinal()==2 ){
            gameRules.createPlayer(PieceValueEnum.BLACK, newGameWindow.getWhoGoesFirst());

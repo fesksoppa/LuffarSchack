@@ -16,6 +16,7 @@ public class GameRules {
     private final int boardWidth;
     private final int boardHeight;
     private Player player1,player2;
+    private Ai ai;
     private boolean blackWin, whiteWin;
     private Point2D firstWinningCoordinate,lastWinningCoordinate;
     private static int noOfMoves;
@@ -37,23 +38,24 @@ public class GameRules {
     public boolean setPlayerMove(Point2D coordinate)
     {
         //System.out.println(coordinate.getX()+ "  " + coordinate.getY());
-        
+       
         if(validMove(coordinate) && !gameOver){
             
         
-        System.out.println(player1);
+                //System.out.println(player1);
             if(player1.getPlayerTurn())
             {
               board[(int)coordinate.getX()][(int)coordinate.getY()]=player1.getCircleColor().ordinal();
                 setTurn();
             }
-            else if(player2.getPlayerTurn()){
-                board[(int)coordinate.getX()][(int)coordinate.getY()]=player2.getCircleColor().ordinal();  
+            else if(ai.getAiTurn()){ //player2
+                board[(int)coordinate.getX()][(int)coordinate.getY()]=ai.getCircleColor().ordinal(); //player2  
                 setTurn();
             }
 
             noOfMoves++;
             checkWin(); 
+             ai.aiLogic();
             return true;
         }    
         return false; 
@@ -63,9 +65,9 @@ public class GameRules {
         if(!player1.getPlayerTurn()){
            return player1.getCircleColor();
         }
-        else if(!player2.getPlayerTurn())
+        else if(!ai.getAiTurn()) // player2
         {
-            return player2.getCircleColor();
+            return ai.getCircleColor(); //player2
         }
         else 
             return null; 
@@ -73,12 +75,16 @@ public class GameRules {
     
     private void setTurn(){
         player1.setPlayerTurn();
-        player2.setPlayerTurn();
+        //player2.setPlayerTurn();
+        ai.setAiTurn();
     }
     public void createPlayer(PieceValueEnum circleColor, boolean turn){
         if(player1!=null){
-            player2=new Player(circleColor, turn);
-            System.out.println("2  " +player2.toString());
+            //player2=new Player(circleColor, turn);
+            //System.out.println("2  " +player2.toString());
+            System.out.println("Hej mina vänner! ");
+            System.out.println(this.toString());
+            ai = new Ai(circleColor, turn,this);
         }
         else{ 
             player1=new Player(circleColor, turn);
@@ -305,6 +311,8 @@ public class GameRules {
         }
         player1 = null;
         player2 = null;
+        ai = null;
+        
     }
     
     public boolean getPlayerTurn(){
