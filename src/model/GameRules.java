@@ -275,6 +275,11 @@ public class GameRules {
         return list;
     }
     
+    public int [][] getBoard()
+    {
+        return board.clone();
+    }
+    
     public boolean getBlackWin(){
         return blackWin;
     }

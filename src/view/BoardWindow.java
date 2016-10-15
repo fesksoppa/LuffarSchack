@@ -210,6 +210,7 @@ public class BoardWindow extends BorderPane{
             GridPane.setValignment(winningLine, VPos.BOTTOM);
           
         }
+        
         else if(k==1)
         {
             endX=list.get(1).getX()+240;
