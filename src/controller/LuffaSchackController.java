@@ -41,6 +41,7 @@ public class LuffaSchackController {
     
     public void setGameOver(){
         if(gameRules.getWhiteWin()){
+            System.out.println("HEJPÅDIG");
             boardWindow.playWinAnimation(gameRules.getWinningCoordinates(),"White");
             boardWindow.setTurnGameOver();
            
@@ -70,36 +71,57 @@ public class LuffaSchackController {
             setGameOver();
             
         } 
+       // System.out.println(gameRules.SetAIMove());
+         if(gameRules.aiExcists() && !gameRules.getBlackWin() && !gameRules.getWhiteWin()){
+            Point2D aiMove = new Point2D(10,10); //WHAT?!
+            aiMove=gameRules.SetAIMove();
+            boardWindow.addCircle(gameRules.getPlayerColor(),aiMove);
+            boardWindow.setPlayerTurnColor(); 
+            setGameOver();
+         }
+         
     }
     
     // creates gameRules and players 
     
     public void eventHandlerOkButton(){
         
-        boardWindow.initView();
+        boardWindow.initView();// SKapar Grafisk spelplan
         
-        boardWindow.addGameSymbol(newGameWindow.getSelectedColor());
+        boardWindow.addGameSymbol(newGameWindow.getSelectedColor()); //säter färg på symbol
         
         gameRules= new GameRules(newGameWindow.getBoardSize(),
-                newGameWindow.getBoardSize());
+                newGameWindow.getBoardSize()); // skapar logisk spelplan
         
-        gameRules.resetBoard();
+        gameRules.resetBoard(); // resetar spelplan,spelare och ai. 
         
         
         
         if(newGameWindow.getSelectedColor().ordinal()==1){
+            
             gameRules.createPlayer(PieceValueEnum.WHITE, newGameWindow.getWhoGoesFirst());
-            gameRules.createPlayer(PieceValueEnum.BLACK,!newGameWindow.getWhoGoesFirst());
+            
+            if(newGameWindow.getOpponent()){
+                gameRules.createAi(PieceValueEnum.BLACK, !newGameWindow.getWhoGoesFirst());
+            }
+            else
+                gameRules.createPlayer(PieceValueEnum.BLACK,!newGameWindow.getWhoGoesFirst());
             
         }
         else if(newGameWindow.getSelectedColor().ordinal()==2 ){
            gameRules.createPlayer(PieceValueEnum.BLACK, newGameWindow.getWhoGoesFirst());
-           gameRules.createPlayer(PieceValueEnum.WHITE,!newGameWindow.getWhoGoesFirst()); 
+           
+           if(newGameWindow.getOpponent()){
+               gameRules.createAi(PieceValueEnum.WHITE, !newGameWindow.getWhoGoesFirst());
+           }
+           else
+                gameRules.createPlayer(PieceValueEnum.WHITE,!newGameWindow.getWhoGoesFirst()); 
         }
         
         boardWindow.setPlayerTurnColor();
         
         boardWindow.fillGridPane(newGameWindow.getBoardSize());
+        
         
     }
 }

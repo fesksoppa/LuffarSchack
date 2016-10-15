@@ -33,7 +33,26 @@ public class GameRules {
          
     }
     
-    //gör en till konstruktor med AI som in
+    public int getNoOfMoves(){
+        return noOfMoves;
+    }
+    
+    public Point2D SetAIMove(){
+        Point2D test;
+        if(ai != null && ai.getAiTurn()){
+                    System.out.println(ai.getAiTurn());
+                    test= ai.aiLogic();
+                    board[(int)test.getX()][(int)test.getY()]=ai.getCircleColor().ordinal();
+                    setTurn();
+                    noOfMoves++;
+                    
+                    checkWin();
+                    
+                   return test;  
+                 }
+       
+        return null;
+    }
     
     public boolean setPlayerMove(Point2D coordinate)
     {
@@ -46,16 +65,19 @@ public class GameRules {
             if(player1.getPlayerTurn())
             {
               board[(int)coordinate.getX()][(int)coordinate.getY()]=player1.getCircleColor().ordinal();
+              setTurn();
+              
+            }
+            else if(player2 != null && player2.getPlayerTurn()){ //player2
+                board[(int)coordinate.getX()][(int)coordinate.getY()]=player2.getCircleColor().ordinal(); //player2  
                 setTurn();
             }
-            else if(ai.getAiTurn()){ //player2
-                board[(int)coordinate.getX()][(int)coordinate.getY()]=ai.getCircleColor().ordinal(); //player2  
-                setTurn();
-            }
-
+             
+               
+           
             noOfMoves++;
             checkWin(); 
-             ai.aiLogic();
+            
             return true;
         }    
         return false; 
@@ -65,9 +87,15 @@ public class GameRules {
         if(!player1.getPlayerTurn()){
            return player1.getCircleColor();
         }
-        else if(!ai.getAiTurn()) // player2
+        else if(player2 != null && !player2.getPlayerTurn()) 
         {
-            return ai.getCircleColor(); //player2
+            return player2.getCircleColor(); 
+        }
+         else if(ai != null && !ai.getAiTurn()) 
+        {
+            System.out.println("HEJAITURN"+ai.getAiTurn());
+            System.out.println(ai.getCircleColor());
+            return ai.getCircleColor(); 
         }
         else 
             return null; 
@@ -75,22 +103,26 @@ public class GameRules {
     
     private void setTurn(){
         player1.setPlayerTurn();
-        //player2.setPlayerTurn();
-        ai.setAiTurn();
+        if(player2 != null)
+            player2.setPlayerTurn();
+        else
+            ai.setAiTurn();
     }
     public void createPlayer(PieceValueEnum circleColor, boolean turn){
         if(player1!=null){
-            //player2=new Player(circleColor, turn);
-            //System.out.println("2  " +player2.toString());
-            System.out.println("Hej mina vänner! ");
-            System.out.println(this.toString());
-            ai = new Ai(circleColor, turn,this);
+            player2=new Player(circleColor, turn);
+            System.out.println("Player 2  " +player2.toString());
+ 
         }
         else{ 
             player1=new Player(circleColor, turn);
-        System.out.println("1  " +player1.toString());
+        System.out.println("Player 1  " +player1.toString());
         }
         
+    }
+    public void createAi(PieceValueEnum circleColor, boolean turn){
+        ai = new Ai(circleColor, turn,this);
+        System.out.println("AI"+ ai.toString());
     }
     
     private boolean validMove(Point2D coordinate){
@@ -317,6 +349,9 @@ public class GameRules {
     
     public boolean getPlayerTurn(){
         return player1.getPlayerTurn();
+    }
+    public boolean aiExcists(){
+        return ai != null;
     }
     
     @Override

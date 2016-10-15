@@ -30,7 +30,7 @@ import model.PieceValueEnum;
  public class NewGameWindow {
      
     private PieceValueEnum selectedColor; 
-    private boolean whoGoesFirst;
+    private boolean whoGoesFirst, opponent;
     private LuffaSchackController luffaSchackController;
     private int selectedBoardSize;
         
@@ -49,6 +49,7 @@ import model.PieceValueEnum;
        Label labelColor = new Label("Select color");
        Label labelTurn = new Label("\nSelect player to begin");
        Label labelBoardSize = new Label("\nSelect board size");
+       Label labelopponent  = new Label("\nSelect opponent"); 
        
        Button ok = new Button("OK");
        ok.setOnAction(e ->{
@@ -81,17 +82,25 @@ import model.PieceValueEnum;
        selectedColor=PieceValueEnum.WHITE; // default value
        whoGoesFirst=true; //default value
        selectedBoardSize=15; // default value
+       opponent=true; //default value (AI)
        
        ToggleGroup groupColor = new ToggleGroup();
        ToggleGroup groupWhoGoesFirst = new ToggleGroup();
        ToggleGroup groupBoardSize = new ToggleGroup();
+       ToggleGroup groupOpponent = new ToggleGroup();
        
        RadioButton rbWhite = new RadioButton("White");
        RadioButton rbBlack = new RadioButton("Black");
        RadioButton rbPlayer = new RadioButton("Player1");
-       RadioButton rbPlayer2 = new RadioButton("Player2");
+       RadioButton rbOpponent = new RadioButton("Opponent");
        RadioButton rbBoardSize15x15 = new RadioButton("15x15");
        RadioButton rbBoardSize12x12 = new RadioButton("12x12");
+       RadioButton rbAI= new RadioButton("AI");
+       RadioButton rbPlayer2 = new RadioButton("Player");
+       
+       rbAI.setToggleGroup(groupOpponent);
+       rbAI.setSelected(true);
+       rbPlayer2.setToggleGroup(groupOpponent);
        
        rbWhite.setToggleGroup(groupColor);
        rbWhite.setSelected(true);
@@ -99,11 +108,34 @@ import model.PieceValueEnum;
        
        rbPlayer.setToggleGroup(groupWhoGoesFirst);
        rbPlayer.setSelected(true);
-       rbPlayer2.setToggleGroup(groupWhoGoesFirst);
+       rbOpponent.setToggleGroup(groupWhoGoesFirst);
        
        rbBoardSize15x15.setToggleGroup(groupBoardSize);
        rbBoardSize15x15.setSelected(true);
        rbBoardSize12x12.setToggleGroup(groupBoardSize);
+       
+      //*************************************************************************
+    //                      Opponent Toggle
+    //************************************************************************  
+     groupOpponent.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
+    
+        
+       
+      @Override
+      public void changed(ObservableValue<? extends Toggle> ov,Toggle old_toggle, Toggle new_toggle){
+          RadioButton check= (RadioButton)new_toggle.getToggleGroup().getSelectedToggle();
+                
+                if(check.getText().equalsIgnoreCase("AI")){
+                    opponent=true;
+                    
+                }
+                else if(check.getText().equalsIgnoreCase("Player")){
+                    opponent=false; 
+                    
+                }
+            }
+        }); 
+
    
     //*************************************************************************
     //                      Color Toggle
@@ -172,7 +204,8 @@ import model.PieceValueEnum;
      
      
        layout.getChildren().addAll(labelColor, rbWhite,rbBlack, labelTurn,
-               rbPlayer, rbPlayer2,labelBoardSize,rbBoardSize15x15,rbBoardSize12x12);
+               rbPlayer, rbOpponent,labelBoardSize,rbBoardSize15x15,rbBoardSize12x12,
+               labelopponent, rbAI,rbPlayer2);
        windowLayout.setCenter(layout);
        
        Scene scene = new Scene(windowLayout);
@@ -193,5 +226,8 @@ import model.PieceValueEnum;
    
    public boolean getWhoGoesFirst(){
        return whoGoesFirst; 
+   }
+   public boolean getOpponent(){
+       return opponent;
    }
 }
