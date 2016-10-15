@@ -229,7 +229,46 @@ public class Ai {
                      testBreak=true; 
                      
                      break;
-                 } // Up rising AI win checking left
+                 }
+                
+                else if(( x>0 && x<board.length-3 && y<board.length-1 && y>2) && board[x-1][y+1] == circleColor.ordinal() && board[x+1][y-1] == circleColor.ordinal() &&
+                    board[x+2][y-2] == circleColor.ordinal() && board[x+3][y-3] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                 else if(( x>2 && x<board.length-1 && y<board.length-3 && y>0) && board[x-1][y+1] == circleColor.ordinal() && board[x+1][y-1] == circleColor.ordinal() &&
+                    board[x-2][y+2] == circleColor.ordinal() && board[x-3][y+3] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                 else if(( x>1 && x<board.length-2 && y<board.length-2 && y>1) && board[x-1][y+1] == circleColor.ordinal() && board[x+1][y-1] == circleColor.ordinal() &&
+                    board[x+2][y-2] == circleColor.ordinal() && board[x-2][y+2] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                // Up rising AI win checking left
                 else if( (x>3 && y<board.length-4) && board[x-1][y+1] == circleColor.ordinal() && board[x-2][y+2] == circleColor.ordinal() &&
                     board[x-3][y+3] == circleColor.ordinal() && board[x-4][y+4] == circleColor.ordinal())
                  {
@@ -247,7 +286,37 @@ public class Ai {
                      testBreak=true; 
                      
                      break;
-                 } // Down rising AI win checking left
+                 }
+                 else if( (x>2 && x<board.length-1 && y>2 && y<board.length-1) && board[x+1][y+1] == circleColor.ordinal() && board[x-1][y-1] == circleColor.ordinal() &&
+                    board[x-3][y-3] == circleColor.ordinal() && board[x-2][y-2] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     break;
+                 }
+                 else if( (x>0 && x<board.length-3 && y>0 && y<board.length-3) && board[x+1][y+1] == circleColor.ordinal() && board[x-1][y-1] == circleColor.ordinal() &&
+                    board[x+3][y+3] == circleColor.ordinal() && board[x+2][y+2] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     break;
+                 }
+                  else if( (x>1 && x<board.length-2 && y>1 && y<board.length-2) && board[x+1][y+1] == circleColor.ordinal() && board[x-1][y-1] == circleColor.ordinal() &&
+                    board[x+2][y+2] == circleColor.ordinal() && board[x-2][y-2] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     break;
+                 }
+                 
+
+                 
+                 
+                 
+                 // Down rising AI win checking left
                 else if( (x>3 && y>3) && board[x-1][y-1] == circleColor.ordinal() && board[x-2][y-2] == circleColor.ordinal() &&
                     board[x-3][y-3] == circleColor.ordinal() && board[x-4][y-4] == circleColor.ordinal())
                  {
@@ -330,6 +399,16 @@ public class Ai {
                      break;
                  }
                 
+                // Horizontal AI win checking up
+                else if( (y>3 && x<board.length) && board[x][y-1] == opponentColor && board[x][y-2] == opponentColor &&
+                    board[x][y-3] == opponentColor && board[x][y-4] == opponentColor)
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     break;
+                 }
+                
                 
                 
                 
@@ -346,6 +425,9 @@ public class Ai {
                      
                      break;
                  }
+                
+                
+                
                 else if((y>2 && y<board.length-1) && board[x][y+1] == opponentColor && board[x][y-1] == opponentColor &&
                     board[x][y-3] == opponentColor && board[x][y-2] == opponentColor)
                  {
@@ -374,29 +456,8 @@ public class Ai {
                      break;
                  }
                 
-
-
-
-
                 
 
-                // Horizontal AI win checking up
-                else if( (y>3 && x<board.length) && board[x][y-1] == opponentColor && board[x][y-2] == opponentColor &&
-                    board[x][y-3] == opponentColor && board[x][y-4] == opponentColor)
-                 {
-                     aiMove = new Point2D(x, y);
-                      System.out.println(aiMove.toString());
-                     testBreak=true; 
-                     break;
-                 }
-                
-                
-                
-                
-                
-                
-                
-                
                 
                 
                 
@@ -410,7 +471,41 @@ public class Ai {
                      testBreak=true; 
                      
                      break;
-                 } // Up rising AI win checking left
+                 }
+                 else if(( x>0 && x<board.length-3 && y<board.length-1 && y>2) && board[x-1][y+1] == opponentColor && board[x+1][y-1] == opponentColor &&
+                    board[x+2][y-2] == opponentColor && board[x+3][y-3] == opponentColor)
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                 else if(( x>2 && x<board.length-1 && y<board.length-3 && y>0) && board[x-1][y+1] == opponentColor && board[x+1][y-1] == opponentColor &&
+                    board[x-2][y+2] == opponentColor && board[x-3][y+3] == opponentColor)
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                 else if(( x>1 && x<board.length-2 && y<board.length-2 && y>1) && board[x-1][y+1] == opponentColor && board[x+1][y-1] == opponentColor &&
+                    board[x+2][y-2] == opponentColor && board[x-2][y+2] == opponentColor)
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+
+
+
+                
+
+
+                    // Up rising AI win checking left
                 else if( (x>3 && y<board.length-4) && board[x-1][y+1] == opponentColor && board[x-2][y+2] == opponentColor &&
                     board[x-3][y+3] == opponentColor && board[x-4][y+4] == opponentColor)
                  {
@@ -419,6 +514,13 @@ public class Ai {
                      testBreak=true; 
                      break;
                  }
+                
+              
+                
+
+                
+                
+                
                 // Down rising AI win checking right 
                  else if(( y<board.length-4 && x<board.length-4) && board[x+1][y+1] == opponentColor && board[x+2][y+2] == opponentColor &&
                     board[x+3][y+3] == opponentColor && board[x+4][y+4] == opponentColor)
@@ -428,7 +530,34 @@ public class Ai {
                      testBreak=true; 
                      
                      break;
-                 } // Down rising AI win checking left
+                 } 
+                   else if( (x>2 && x<board.length-1 && y>2 && y<board.length-1) && board[x+1][y+1] == opponentColor && board[x-1][y-1] == opponentColor &&
+                    board[x-3][y-3] == opponentColor && board[x-2][y-2] == opponentColor)
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     break;
+                 }
+                 else if( (x>0 && x<board.length-3 && y>0 && y<board.length-3) && board[x+1][y+1] == opponentColor && board[x-1][y-1] == opponentColor &&
+                    board[x+3][y+3] == opponentColor && board[x+2][y+2] == opponentColor)
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     break;
+                 }
+                  else if( (x>1 && x<board.length-2 && y>1 && y<board.length-2) && board[x+1][y+1] == opponentColor && board[x-1][y-1] == opponentColor &&
+                    board[x+2][y+2] == opponentColor && board[x-2][y-2] == opponentColor)
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     break;
+                 }
+
+
+                // Down rising AI win checking left
                 else if( (x>3 && y>3) && board[x-1][y-1] == opponentColor && board[x-2][y-2] == opponentColor &&
                     board[x-3][y-3] == opponentColor && board[x-4][y-4] == opponentColor)
                  {
@@ -471,7 +600,39 @@ public class Ai {
                      testBreak=true; 
                      
                      break;
-                 } // Horizontal AI win checking left
+                 }
+                 
+                  else if(( x> 1 && x<board.length-1) && board[x+1][y] == circleColor.ordinal() && board[x-1][y] == circleColor.ordinal() &&
+                    board[x-2][y] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                else if(( x>0 && x<board.length-2) && board[x-1][y] == circleColor.ordinal() && board[x+1][y] == circleColor.ordinal() &&
+                    board[x+2][y] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                 
+                 
+                  // Horizontal AI win checking up
+                else if( (y>3 && x<board.length) && board[x][y-1] == circleColor.ordinal() && board[x][y-2] == circleColor.ordinal() &&
+                    board[x][y-3] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     break;
+                 } 
+
+                 // Horizontal AI win checking left
                 else if( (x>3 && x<board.length) && board[x-1][y] == circleColor.ordinal() && board[x-2][y] == circleColor.ordinal() &&
                     board[x-3][y] == circleColor.ordinal())
                  {
@@ -480,7 +641,11 @@ public class Ai {
                      testBreak=true; 
                      break;
                  }
-                 // Vertical AI win checking down 
+                
+
+
+                    
+                // Vertical AI win checking down 
                 else if( y<board.length-4 && board[x][y+1] == circleColor.ordinal() && board[x][y+2] == circleColor.ordinal() &&
                     board[x][y+3] == circleColor.ordinal())
                  {
@@ -489,15 +654,29 @@ public class Ai {
                      testBreak=true; 
                      
                      break;
-                 } // Horizontal AI win checking up
-                else if( (y>3 && x<board.length) && board[x][y-1] == circleColor.ordinal() && board[x][y-2] == circleColor.ordinal() &&
-                    board[x][y-3] == circleColor.ordinal())
+                 }
+                 else if((y>1 && y<board.length-1) && board[x][y+1] == circleColor.ordinal() && board[x][y-1] == circleColor.ordinal() 
+                        && board[x][y-2] == circleColor.ordinal())
                  {
                      aiMove = new Point2D(x, y);
                       System.out.println(aiMove.toString());
                      testBreak=true; 
+                     
                      break;
                  }
+                else if((y>0 && y<board.length-2) && board[x][y+1] == circleColor.ordinal() && board[x][y-1] == circleColor.ordinal() 
+                        && board[x][y+2] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                
+                
+                
+                
                   // Up rising AI win checking right 
                 else if(( y>3 && x<board.length-4) && board[x+1][y-1] == circleColor.ordinal() && board[x+2][y-2] == circleColor.ordinal() &&
                     board[x+3][y-3] == circleColor.ordinal())
@@ -507,7 +686,35 @@ public class Ai {
                      testBreak=true; 
                      
                      break;
-                 } // Up rising AI win checking left
+                 }
+                
+                else if(( x>0 && x<board.length-2 && y<board.length-1 && y>1) && board[x-1][y+1] == circleColor.ordinal() && board[x+1][y-1] == circleColor.ordinal() &&
+                         board[x+2][y-2] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                 else if(( x>1 && x<board.length-1 && y<board.length-2 && y>0) && board[x-1][y+1] == circleColor.ordinal() && board[x+1][y-1] == circleColor.ordinal() &&
+                         board[x-2][y+2] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                
+                
+                
+                
+                
+                
+                
+                
+                // Up rising AI win checking left
                 else if( (x>3 && y<board.length-4) && board[x-1][y+1] == circleColor.ordinal() && board[x-2][y+2] == circleColor.ordinal() &&
                     board[x-3][y+3] == circleColor.ordinal())
                  {
@@ -525,7 +732,25 @@ public class Ai {
                      testBreak=true; 
                      
                      break;
-                 } // Down rising AI win checking left
+                 } 
+                  else if( (x>1 && x<board.length-1 && y>1 && y<board.length-1) && board[x+1][y+1] == circleColor.ordinal() && board[x-1][y-1] == circleColor.ordinal() 
+                     && board[x-2][y-2] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     break;
+                 }
+                  else if( (x>0 && x<board.length-2 && y>0 && y<board.length-2) && board[x+1][y+1] == circleColor.ordinal() && board[x-1][y-1] == circleColor.ordinal() &&
+                    board[x+2][y+2] == circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     break;
+                 }
+ 
+                // Down rising AI win checking left
                 else if( (x>3 && y>3) && board[x-1][y-1] == circleColor.ordinal() && board[x-2][y-2] == circleColor.ordinal() &&
                     board[x-3][y-3] == circleColor.ordinal())
                  {
@@ -560,72 +785,223 @@ public class Ai {
             {
              if(board[x][y] == PieceValueEnum.EMPTY.ordinal())
              {
-                 // Horizpntal Ai Win checking right
+                 // Horizpntal Ai Win checking right 0XXX
                  if( x<board.length-4 && board[x+1][y] == opponentColor && board[x+2][y] == opponentColor &&
-                    board[x+3][y] == opponentColor)
+                    board[x+3][y] == opponentColor && board[x+4][y] != circleColor.ordinal() && x!=0)
                  {
                      aiMove = new Point2D(x, y);
                       System.out.println(aiMove.toString());
                      testBreak=true; 
                      
                      break;
-                 } // Horizontal AI win checking left
+                 }
+                        // XX0X
+                  else if(( x> 2 && x<board.length-2) && board[x+1][y] == opponentColor && board[x-1][y] == opponentColor &&
+                    board[x-2][y] == opponentColor && board[x-3][y] != circleColor.ordinal() && board[x+2][y] != circleColor.ordinal() )
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }  
+                  // X0XX
+                else if(( x>1 && x<board.length-3) && board[x-1][y] == opponentColor && board[x+1][y] == opponentColor &&
+                    board[x+2][y] == opponentColor && board[x-2][y] != circleColor.ordinal() && board[x+3][y] != circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+               
+                    // Horizontal AI win checking left XXX0
                 else if( (x>3 && x<board.length) && board[x-1][y] == opponentColor && board[x-2][y] == opponentColor &&
-                    board[x-3][y] == opponentColor)
+                    board[x-3][y] == opponentColor && board[x-4][y] != circleColor.ordinal())
                  {
                      aiMove = new Point2D(x, y);
                       System.out.println(aiMove.toString());
                      testBreak=true; 
                      break;
                  }
-                 // Vertical AI win checking down 
-                else if( y<board.length-4 && board[x][y+1] == opponentColor && board[x][y+2] == opponentColor &&
-                    board[x][y+3] == opponentColor)
-                 {
-                     aiMove = new Point2D(x, y);
-                      System.out.println(aiMove.toString());
-                     testBreak=true; 
-                     
-                     break;
-                 } // Horizontal AI win checking up
+                  // Vertical AI win checking up X
+                    //                           X
+                    //                           X
+                    //                           0
                 else if( (y>3 && x<board.length) && board[x][y-1] == opponentColor && board[x][y-2] == opponentColor &&
-                    board[x][y-3] == opponentColor)
+                    board[x][y-3] == opponentColor && board[x][y-4] != circleColor.ordinal())
                  {
                      aiMove = new Point2D(x, y);
                       System.out.println(aiMove.toString());
                      testBreak=true; 
                      break;
                  }
+
+
+
+                 
+                // Vertical AI win checking down 0
+                //                               X
+                //                               X
+                //                               X
+                else if( y<board.length-4 && board[x][y+1] == opponentColor && board[x][y+2] == opponentColor &&
+                    board[x][y+3] == opponentColor && board[x][y+4] != circleColor.ordinal()
+                        && y!=0)
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                
+                //              X
+                //              X
+                //              0
+                //              X
+                else if((y>2 && y<board.length-2) && board[x][y+1] == opponentColor && board[x][y-1] == opponentColor 
+                        && board[x][y-2] == opponentColor && board[x][y-3] != circleColor.ordinal() 
+                        && board[x][y+2] != circleColor.ordinal() )
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                //                  X
+                //                  0
+                //                  X
+                //                  X
+                else if((y>1 && y<board.length-3) && board[x][y+1] == opponentColor && board[x][y-1] == opponentColor 
+                        && board[x][y+2] == opponentColor && board[x][y-2] != circleColor.ordinal()
+                        && board[x][y+3] != circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                
+                
+
+
+               
                   // Up rising AI win checking right 
+                //                             X
+                //                            X
+                //                           X
+                //                          0
                 else if(( y>3 && x<board.length-4) && board[x+1][y-1] == opponentColor && board[x+2][y-2] == opponentColor &&
-                    board[x+3][y-3] == opponentColor)
+                    board[x+3][y-3] == opponentColor && board[x+4][y-4] != circleColor.ordinal() && x!=0 
+                        && y!=board.length-1)
                  {
                      aiMove = new Point2D(x, y);
                       System.out.println(aiMove.toString());
                      testBreak=true; 
                      
                      break;
-                 } // Up rising AI win checking left
+                 }
+                //             X
+                //            X
+                //           0
+                //          X
+                else if(( x>1 && x<board.length-3 && y<board.length-1 && y>1) && board[x-1][y+1] == opponentColor
+                        && board[x+1][y-1] == opponentColor &&
+                         board[x+2][y-2] == opponentColor && board[x+3][y-3] != circleColor.ordinal()
+                        && board[x-2][y+2] != circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+                //         X
+                //        0
+                //       X
+                //      X
+                 else if(( x>2 && x<board.length-1 && y<board.length-2 && y>1) && board[x-1][y+1] == opponentColor 
+                         && board[x+1][y-1] == opponentColor && 
+                         board[x-2][y+2] == opponentColor && board[x+2][y-2] != circleColor.ordinal()
+                         && board[x-3][y+3] != circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     
+                     break;
+                 }
+
+
+
+                // Up rising AI win checking left
+                //          0
+                //         X
+                //        X
+                //       X    
                 else if( (x>3 && y<board.length-4) && board[x-1][y+1] == opponentColor && board[x-2][y+2] == opponentColor &&
-                    board[x-3][y+3] == opponentColor)
+                    board[x-3][y+3] == opponentColor && board[x-4][y+4] != circleColor.ordinal() && x!=board.length-1 
+                        && y!=0)
                  {
                      aiMove = new Point2D(x, y);
                       System.out.println(aiMove.toString());
                      testBreak=true; 
                      break;
                  }
+                
+                
                 // Down rising AI win checking right 
+                //        0  
+                //         X
+                //          X
+                //           X
                  else if(( y<board.length-4 && x<board.length-4) && board[x+1][y+1] == opponentColor && board[x+2][y+2] == opponentColor &&
-                    board[x+3][y+3] == opponentColor)
+                    board[x+3][y+3] == opponentColor && board[x+4][y+4] != circleColor.ordinal() && x!=0 
+                        && y!=0)
                  {
                      aiMove = new Point2D(x, y);
                       System.out.println(aiMove.toString());
                      testBreak=true; 
                      
                      break;
-                 } // Down rising AI win checking left
+                 } 
+                 //         X
+                 //          X
+                 //           0   
+                 //            X
+                  else if( (x>2 && x<board.length-1 && y>1 && y<board.length-2) && board[x+1][y+1] == opponentColor && board[x-1][y-1] == opponentColor 
+                     && board[x-2][y-2] == opponentColor && board[x-3][y-3] != circleColor.ordinal() &&
+                          board[x+2][y+2] != circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     break;
+                 }
+                 //         X
+                 //          0
+                 //           X
+                 //            X
+                  else if( (x>1 && x<board.length-2 && y>0 && y<board.length-3) && board[x+1][y+1] == opponentColor && board[x-1][y-1] == opponentColor &&
+                    board[x+2][y+2] == opponentColor && board[x-2][y-2] != circleColor.ordinal()&&
+                          board[x+3][y+3] != circleColor.ordinal())
+                 {
+                     aiMove = new Point2D(x, y);
+                      System.out.println(aiMove.toString());
+                     testBreak=true; 
+                     break;
+                 }
+                // Down rising AI win checking left
+                //          X
+                //           X
+                //            X
+                //             0
                 else if( (x>3 && y>3) && board[x-1][y-1] == opponentColor && board[x-2][y-2] == opponentColor &&
-                    board[x-3][y-3] == opponentColor)
+                    board[x-3][y-3] == opponentColor && board[x-4][y-4] != circleColor.ordinal() && x!=board.length-1 
+                        && y!= board.length-1)
                  {
                      aiMove = new Point2D(x, y);
                       System.out.println(aiMove.toString());
