@@ -19,8 +19,16 @@ import controller.LuffaSchackController;
 import model.PieceValueEnum;
 
 /**
- *
+ * 
  * @author Krist
+ */
+
+/**
+ * The class creates and handles events from a window where to adjust settings
+ * for the game. For example, select which color to play with, select which player
+ * to make first move, select if opponent is going to be another human player or
+ * an Ai, select the boardsize (12x12 or 15x15).
+ * @author Erik
  */
 public class NewGameWindow {
 
@@ -33,6 +41,10 @@ public class NewGameWindow {
         this.luffaSchackController = luffaSchackController;
     }
 
+    /**
+     * The method creates the main window for the enitre game and displays it
+     * on the screen
+     */
     public void display() {
         Stage newGameWindow = new Stage();
         newGameWindow.initModality(Modality.APPLICATION_MODAL);
@@ -194,18 +206,34 @@ public class NewGameWindow {
 
     }
 
+    /**
+     * 
+     * @return the selected boardsize (15x15) or (12x12)
+     */
     public int getBoardSize() {
         return selectedBoardSize;
     }
 
+    /**
+     * 
+     * @return returns the choosen color of a player
+     */
     public PieceValueEnum getSelectedColor() {
         return selectedColor;
     }
 
+    /**
+     * 
+     * @return returns true or false depending on which player to make the first move 
+     */
     public boolean getWhoGoesFirst() {
         return whoGoesFirst;
     }
 
+    /**
+     * 
+     * @return return the type of opponent (true = Ai), (false = Humanplayer)
+     */
     public boolean getOpponent() {
         return opponent;
     }
