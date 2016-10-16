@@ -53,14 +53,24 @@ public class BoardWindow extends BorderPane {
     private Line winningLine;
     private Menu fileMenu, helpMenu;
 
+    /**
+     * The constructor
+     */
     public BoardWindow() {
         this.coordinate = null;
     }
 
+    /**
+     * The method creates the controller
+     * @param luffaSchackController 
+     */
     public void setController(LuffaSchackController luffaSchackController) {
         this.luffaSchackController = luffaSchackController;
     }
 
+    /**
+     * Creates the initial window when the program executes
+     */
     public void initView() {
 
         gameBoard = new GridPane();
@@ -131,6 +141,11 @@ public class BoardWindow extends BorderPane {
 
     }
 
+    /**
+     * The method prints a circle to the clicked cell in the board
+     * @param color The color of the player who turn it is
+     * @param coordinate Coordinates of the clicked cell in the grid
+     */
     public void addCircle(PieceValueEnum color, Point2D coordinate) {
         Circle circle = new Circle(20);
         if (color == PieceValueEnum.WHITE) {
@@ -144,6 +159,10 @@ public class BoardWindow extends BorderPane {
         GridPane.setHalignment(circle, HPos.CENTER);
     }
 
+    /**
+     * The method creates the grid of the board
+     * @param boardSize The size of the board (15x15 or 12x12)
+     */
     public void fillGridPane(int boardSize) {
         int noRowAndColumn = boardSize;
         gameBoard.setStyle("-fx-background-color:#006400;");
@@ -164,6 +183,11 @@ public class BoardWindow extends BorderPane {
 
     }
 
+    /**
+     * The method handles the events for clicked cells in the grid
+     * @param colIndex The number of columns
+     * @param rowIndex The number of rows
+     */
     private void addPane(int colIndex, int rowIndex) {
         Pane pane = new Pane();
 
@@ -175,6 +199,12 @@ public class BoardWindow extends BorderPane {
         gameBoard.add(pane, colIndex, rowIndex);
     }
 
+    /**
+     * The method draws a line to indicate the players where the winning row
+     * occured
+     * @param list A list that contains the coordinates for the winning line
+     * @param winner A string that contsins the name of the winning Player
+     */
     public void playWinAnimation(ArrayList<Point2D> list, String winner) {
         double k, endX = 0, endY = 0;
         winningLine = new Line(list.get(0).getX(), list.get(0).getY(), list.get(0).getX(), list.get(0).getY());
@@ -213,8 +243,12 @@ public class BoardWindow extends BorderPane {
         timeline.setOnFinished(e -> alertWindowWinner("WINNER!!!", "The Winner is: " + winner));
     }
 
+    /**
+     * The method sets a "turn indicator" displayed in green to indicate the
+     * player whos turn it is to make a move
+     */
     public void setPlayerTurnColor() {
-        if (luffaSchackController.getPlayerTurn()) { // Använd GameRules istället
+        if (luffaSchackController.getPlayerTurn()) { 
             playerBox.setStyle("-fx-background-color:#00FF00;");
             aiBox.setStyle("-fx-background-color: transparent;");
         } else {
@@ -224,11 +258,19 @@ public class BoardWindow extends BorderPane {
 
     }
 
+    /**
+     * The method removes the "turn indicator" when the game is over and displays
+     * it to the main window
+     */
     public void setTurnGameOver() {
         playerBox.setStyle("-fx-background-color: transparent;");
         aiBox.setStyle("-fx-background-color: transparent;");
     }
 
+    /**
+     * The method sets the choosen color to be displayed in the main window
+     * @param color The color that the user have choosen to play with
+     */
     public void addGameSymbol(PieceValueEnum color) {
 
         if (color == PieceValueEnum.WHITE) {
@@ -242,6 +284,11 @@ public class BoardWindow extends BorderPane {
 
     }
 
+    /**
+     * 
+     * @param title The title string to be displayed in the alertWindow
+     * @param content The content as a String to be displayed in the alertWindow
+     */
     public void alertWindowMenu(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -251,6 +298,11 @@ public class BoardWindow extends BorderPane {
 
     }
 
+    /**
+     * 
+     * @param header The header string to be displayed in the alertWindow
+     * @param content The content as a String to be displayed in the alertWindow
+     */
     public void alertWindowWinner(String header, String content) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(header);
@@ -258,6 +310,10 @@ public class BoardWindow extends BorderPane {
         alert.show();
     }
 
+    /**
+     * 
+     * @return A string of the rules for the game
+     */
     private String getRules() {
         String rules = "Luffarschack is a board game for two players who take turns in putting "
                 + "black and white stones on the board. Each players' goal is to"
@@ -273,7 +329,7 @@ public class BoardWindow extends BorderPane {
     }
 
     /**
-     * @param player2Label the player2Label to set
+     * @param opponent the opponentLabel to set
      */
     public void setOpponentLabel(String opponent) {
         this.opponentLabel.setText(opponent);
