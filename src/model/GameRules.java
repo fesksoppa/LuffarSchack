@@ -5,9 +5,9 @@ import javafx.geometry.Point2D;
 
 
 /**
- * The class GameRules represents the game logic for the boardgame five in a row.
- * 
- * It can handle both player vs player or player vs Ai (Computer).
+ * The class GameRules represents the game logic for the board game five in a row.
+ * The class uses Player and Ai objects to represent the players in the game.
+ * GameRules can handle player vs player or player vs Ai matches. 
  * 
  */
 public class GameRules {

@@ -5,9 +5,8 @@ package model;
 
 import javafx.geometry.Point2D;
 
-/**
- *
- * @author Erik
+/** The Ai class represents an ai in class GameRules.
+ *  Its a simple and fast ai that can understand the basic rules of the game.
  */
 public class Ai {
 
@@ -18,6 +17,12 @@ public class Ai {
     private Point2D aiMove;
     private int opponentColor;
 
+    /**
+     * Initilizes the class attributes with given parameters and calculates the opponentColor.
+     * @param circleColor represents the piece color for the ai
+     * @param turn representing the turn for the ai.
+     * @param gameRules the object representing the board and game logic. 
+     */
     public Ai(PieceValueEnum circleColor, boolean turn, GameRules gameRules) {
         this.gameRules = gameRules;
         this.turn = turn;
@@ -31,19 +36,35 @@ public class Ai {
         }
 
     }
-
+    /**
+     * Returns a boolean representing the Ai turn
+     * @return turn 
+     */
     public boolean getAiTurn() {
         return turn;
     }
-
+    
+    /**
+     * Returns the piece color representing the Ai
+     * @return circleColor
+     */
     public PieceValueEnum getCircleColor() {
         return circleColor;
     }
 
+    /**
+     * Changes the Ai turn
+     */
     public void setAiTurn() {
         this.turn = !this.turn;
     }
 
+    /**
+     * Checking next move for the ai object.
+     * This method represents simple ai logic with differents prioritizations 
+     * and calculations. 
+     * @return a coordinate representing the next ai move
+     */
     public Point2D aiLogic() {
         int counter = 1;
         this.aiMove = new Point2D(100, 100); // Kan vi ändra? 
@@ -88,7 +109,7 @@ public class Ai {
         return aiMove;
     }
 
-    public Point2D aiCheckWin() {
+    private Point2D aiCheckWin() {
         boolean testBreak = false;
 
         for (int y = 0; y < board.length; y++) {
@@ -230,7 +251,7 @@ public class Ai {
         return aiMove;
     }
 
-    public Point2D aiCheckLose() {
+    private Point2D aiCheckLose() {
         boolean testBreak = false;
 
         for (int y = 0; y < board.length; y++) {
@@ -372,7 +393,7 @@ public class Ai {
         return aiMove;
     }
 
-    public Point2D aiCheck3InARowAI() {
+    private Point2D aiCheck3InARowAI() {
         boolean testBreak = false;
 
         for (int y = 0; y < board.length; y++) {
@@ -491,7 +512,7 @@ public class Ai {
         return aiMove;
     }
 
-    public Point2D aiCheck3InARowPlayer() {
+    private Point2D aiCheck3InARowPlayer() {
         boolean testBreak = false;
 
         for (int y = 0; y < board.length; y++) {
@@ -671,7 +692,7 @@ public class Ai {
         return aiMove;
     }
 
-    public Point2D aiCheck2InARowAI() {
+    private Point2D aiCheck2InARowAI() {
         boolean testBreak = false;
 
         for (int y = 0; y < board.length; y++) {
@@ -736,7 +757,7 @@ public class Ai {
         return aiMove;
     }
 
-    public Point2D aiBehaveLikaAHuman() {
+    private Point2D aiBehaveLikaAHuman() {
         if (board[7][7] == PieceValueEnum.EMPTY.ordinal()) {
             aiMove = new Point2D(7, 7);
         } else {
@@ -754,6 +775,9 @@ public class Ai {
     }
 
     @Override
+    /**
+     * Returns information about the Ai object, circleColor & turn. 
+     */
     public String toString() {
         String info = "AI: " + circleColor + " & " + turn;
         return info;
