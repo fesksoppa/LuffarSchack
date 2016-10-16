@@ -171,7 +171,7 @@ import model.PieceValueEnum;
                     whoGoesFirst=true;
                     
                 }
-                else if(check.getText().equalsIgnoreCase("Player2")){
+                else if(check.getText().equalsIgnoreCase("Opponent")){
                    whoGoesFirst=false;
                     
                 }

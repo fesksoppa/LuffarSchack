@@ -45,9 +45,7 @@ import model.PieceValueEnum;
  * @author Krist 
  */
 public class BoardWindow extends BorderPane{
-        
-        private Stage primaryStage;
-        private Label player1Label, player2Label;
+        private Label player1Label, opponentLabel;
         private LuffaSchackController luffaSchackController;
         private GridPane gameBoard;
         private Point2D coordinate;
@@ -57,7 +55,6 @@ public class BoardWindow extends BorderPane{
         private Menu fileMenu,helpMenu;
         
     public BoardWindow(){
-         
          this.coordinate=null;
      }
     
@@ -80,10 +77,10 @@ public class BoardWindow extends BorderPane{
         gameSymbolP1 = new Circle(20, Color.TRANSPARENT);
         gameSymbolP2 = new Circle(20, Color.TRANSPARENT); 
         
-        player1Label=new Label("Player1");
+        player1Label=(new Label("Player1"));
         player1Label.setFont(new Font("Arial", 30));
-        player2Label = new Label("Player2");
-        player2Label.setFont(new Font("Arial", 30));
+        opponentLabel=(new Label("Opponent"));
+        opponentLabel.setFont(new Font("Arial", 30));
         
         playerBox = new VBox(100);
         playerBox.setPadding(new Insets(50,50,50,50));
@@ -94,7 +91,7 @@ public class BoardWindow extends BorderPane{
         aiBox = new VBox(100);
         aiBox.setPadding(new Insets(50,50,50,50));
         aiBox.setAlignment(Pos.CENTER);
-        aiBox.getChildren().addAll(player2Label, gameSymbolP2);
+        aiBox.getChildren().addAll(opponentLabel, gameSymbolP2);
         
         
         //**********************************************************************
@@ -163,10 +160,8 @@ public class BoardWindow extends BorderPane{
      
     public void fillGridPane(int boardSize){
         int noRowAndColumn = boardSize;
-            System.out.println(noRowAndColumn);
         gameBoard.setStyle("-fx-background-color:#006400;");
-        
-        
+       
         for(int i=0 ; i<noRowAndColumn;i++){
             ColumnConstraints column = new ColumnConstraints(50);
             RowConstraints row = new RowConstraints(50);
@@ -191,7 +186,6 @@ public class BoardWindow extends BorderPane{
         });
 
         gameBoard.add(pane, colIndex, rowIndex);
-  
     } 
     
     public void playWinAnimation(ArrayList<Point2D> list, String winner){
@@ -238,8 +232,6 @@ public class BoardWindow extends BorderPane{
         
         timeline.play();
         timeline.setOnFinished(e -> alertWindowWinner("WINNER!!!","The Winner is: "+ winner));
-        
-        
     }
     
     public void setPlayerTurnColor(){
@@ -277,7 +269,7 @@ public class BoardWindow extends BorderPane{
     public void alertWindowMenu(String title, String content){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
-        alert.setHeaderText("LuffaSchack Nigga");
+        alert.setHeaderText("LuffaSchack");
         alert.setContentText(content);
         alert.show();
         
@@ -303,6 +295,15 @@ public class BoardWindow extends BorderPane{
 
                 
         return rules;
+    }
+
+    
+
+    /**
+     * @param player2Label the player2Label to set
+     */
+    public void setOpponentLabel(String opponent) {
+        this.opponentLabel.setText(opponent);
     }
      
 }
