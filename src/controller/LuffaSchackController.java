@@ -1,4 +1,3 @@
-
 package controller;
 
 import javafx.geometry.Point2D;
@@ -9,107 +8,101 @@ import model.PieceValueEnum;
 
 /**
  *
- * @author Krist 
+ * @author Krist
  */
 public class LuffaSchackController {
-        private BoardWindow boardWindow;
-        private NewGameWindow newGameWindow;
-        private GameRules gameRules;
-        
-    
-    public LuffaSchackController(BoardWindow boardWindow, NewGameWindow newGameWindow){
-       this.boardWindow =boardWindow; 
-       this.newGameWindow=newGameWindow; 
-       boardWindow.setController(this);
-       newGameWindow.setController(this);
-       initGame();
-        
+
+    private BoardWindow boardWindow;
+    private NewGameWindow newGameWindow;
+    private GameRules gameRules;
+
+    public LuffaSchackController(BoardWindow boardWindow, NewGameWindow newGameWindow) {
+        this.boardWindow = boardWindow;
+        this.newGameWindow = newGameWindow;
+        boardWindow.setController(this);
+        newGameWindow.setController(this);
+        initGame();
+
     }
-    
-    public void initGame(){
+
+    public void initGame() {
         boardWindow.initView();
-        
+
     }
-    
-    public boolean getPlayerTurn(){
+
+    public boolean getPlayerTurn() {
         return gameRules.getPlayerTurn();
-        
+
     }
-    
-    public void setGameOver(){
-        if(gameRules.getWhiteWin()){
-            boardWindow.playWinAnimation(gameRules.getWinningCoordinates(),"White");
+
+    public void setGameOver() {
+        if (gameRules.getWhiteWin()) {
+            boardWindow.playWinAnimation(gameRules.getWinningCoordinates(), "White");
             boardWindow.setTurnGameOver();
-           
-        }
-        else if(gameRules.getBlackWin()){
+
+        } else if (gameRules.getBlackWin()) {
             boardWindow.playWinAnimation(gameRules.getWinningCoordinates(), "Black");
             boardWindow.setTurnGameOver();
+        } else if (gameRules.checkDraw()) {
+            boardWindow.alertWindowWinner("DRAW!!!!", "Draw");
+            boardWindow.setTurnGameOver();
         }
-        else if(gameRules.checkDraw()){
-            boardWindow.alertWindowWinner("DRAW!!!!" ,"Draw");
-            boardWindow.setTurnGameOver(); 
-        }
-        
+
     }
-    
-    public void eventHandlerMenuAction(){
+
+    public void eventHandlerMenuAction() {
         newGameWindow.display();
 
     }
-    
-    public void eventHandlerPlayerMove(Point2D coordinate){
-        if(newGameWindow.getSelectedColor()!= null && gameRules.setPlayerMove(coordinate)){
+
+    public void eventHandlerPlayerMove(Point2D coordinate) {
+        if (newGameWindow.getSelectedColor() != null && gameRules.setPlayerMove(coordinate)) {
             boardWindow.addCircle(gameRules.getPlayerColor(), coordinate);
             boardWindow.setPlayerTurnColor();
-            setGameOver();   
-        } 
-         if(gameRules.aiExcists() && !gameRules.getBlackWin() && !gameRules.getWhiteWin()){
-            aiMove();
-         }  
-    }
-    
-    public void aiMove(){
-            Point2D aiMove = new Point2D(0,0); //WHAT?!
-            aiMove=gameRules.SetAIMove();
-            boardWindow.addCircle(gameRules.getPlayerColor(),aiMove);
-            boardWindow.setPlayerTurnColor(); 
             setGameOver();
+        }
+        if (gameRules.aiExcists() && !gameRules.getBlackWin() && !gameRules.getWhiteWin()) {
+            aiMove();
+        }
     }
-    
-    
-    public void eventHandlerOkButton(){
-        
+
+    public void aiMove() {
+        Point2D aiMove = new Point2D(0, 0); //WHAT?!
+        aiMove = gameRules.SetAIMove();
+        boardWindow.addCircle(gameRules.getPlayerColor(), aiMove);
+        boardWindow.setPlayerTurnColor();
+        setGameOver();
+    }
+
+    public void eventHandlerOkButton() {
+
         boardWindow.initView();// SKapar Grafisk spelplan
         boardWindow.addGameSymbol(newGameWindow.getSelectedColor()); //säter färg på symbol
-        gameRules= new GameRules(newGameWindow.getBoardSize(),newGameWindow.getBoardSize()); // skapar logisk spelplan
+        gameRules = new GameRules(newGameWindow.getBoardSize(), newGameWindow.getBoardSize()); // skapar logisk spelplan
         gameRules.resetBoard(); // resetar spelplan,spelare och ai. 
-                        
-        if(newGameWindow.getSelectedColor().ordinal()==1){
+
+        if (newGameWindow.getSelectedColor().ordinal() == 1) {
             gameRules.createPlayer(PieceValueEnum.WHITE, newGameWindow.getWhoGoesFirst());
-            if(newGameWindow.getOpponent()){
+            if (newGameWindow.getOpponent()) {
                 gameRules.createAi(PieceValueEnum.BLACK, !newGameWindow.getWhoGoesFirst());
                 boardWindow.setOpponentLabel("  Ai  ");
+            } else {
+                gameRules.createPlayer(PieceValueEnum.BLACK, !newGameWindow.getWhoGoesFirst());
+                boardWindow.setOpponentLabel("Player2");
             }
-            else{
-                gameRules.createPlayer(PieceValueEnum.BLACK,!newGameWindow.getWhoGoesFirst());
+        } else if (newGameWindow.getSelectedColor().ordinal() == 2) {
+            gameRules.createPlayer(PieceValueEnum.BLACK, newGameWindow.getWhoGoesFirst());
+            if (newGameWindow.getOpponent()) {
+                gameRules.createAi(PieceValueEnum.WHITE, !newGameWindow.getWhoGoesFirst());
+            } else {
+                gameRules.createPlayer(PieceValueEnum.WHITE, !newGameWindow.getWhoGoesFirst());
                 boardWindow.setOpponentLabel("Player2");
-            }  
-        }
-        else if(newGameWindow.getSelectedColor().ordinal()==2 ){
-           gameRules.createPlayer(PieceValueEnum.BLACK, newGameWindow.getWhoGoesFirst());
-           if(newGameWindow.getOpponent()){
-               gameRules.createAi(PieceValueEnum.WHITE, !newGameWindow.getWhoGoesFirst());       
-           }
-           else{
-                gameRules.createPlayer(PieceValueEnum.WHITE,!newGameWindow.getWhoGoesFirst());
-                boardWindow.setOpponentLabel("Player2");
-           }
+            }
         }
         boardWindow.setPlayerTurnColor();
         boardWindow.fillGridPane(newGameWindow.getBoardSize());
-        if(!newGameWindow.getWhoGoesFirst() && gameRules.aiExcists()){
+        if (!newGameWindow.getWhoGoesFirst() && gameRules.aiExcists()) {
             aiMove();
-          }  
+        }
     }
 }

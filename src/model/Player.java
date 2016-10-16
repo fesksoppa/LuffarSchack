@@ -1,36 +1,35 @@
-
 package model;
 
 /**
  *
- * @author Krist 
+ * @author Krist
  */
 public class Player {
-    private boolean turn; 
+
+    private boolean turn;
     private final PieceValueEnum circleColor;
-    
-    
-    public Player(PieceValueEnum cirleColor, boolean turn){
+
+    public Player(PieceValueEnum cirleColor, boolean turn) {
         this.turn = turn;
-        this.circleColor=cirleColor;
-        
+        this.circleColor = cirleColor;
+
     }
-    
-    public boolean getPlayerTurn(){
+
+    public boolean getPlayerTurn() {
         return this.turn;
     }
 
-    public PieceValueEnum getCircleColor(){
-        return this.circleColor; 
+    public PieceValueEnum getCircleColor() {
+        return this.circleColor;
     }
-    public void setPlayerTurn(){
+
+    public void setPlayerTurn() {
         this.turn = !this.turn;
     }
-    
-    
+
     @Override
-    public String toString(){
-        String info="Player: " +circleColor+" & "+ turn; 
+    public String toString() {
+        String info = "Player: " + circleColor + " & " + turn;
         return info;
     }
 }
