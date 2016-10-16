@@ -16,6 +16,12 @@ public class LuffaSchackController {
     private NewGameWindow newGameWindow;
     private GameRules gameRules;
 
+    /**
+     * Constructor of the controller to initialize members and provide information
+     * to other objects.
+     * @param boardWindow The main window of the game
+     * @param newGameWindow The menu where to adjust settings for the game.
+     */
     public LuffaSchackController(BoardWindow boardWindow, NewGameWindow newGameWindow) {
         this.boardWindow = boardWindow;
         this.newGameWindow = newGameWindow;
@@ -25,16 +31,27 @@ public class LuffaSchackController {
 
     }
 
+    /**
+     * The method sets the initial vew of the game to be displayed when program
+     * executes
+     */
     public void initGame() {
         boardWindow.initView();
 
     }
 
+    /**
+     * The method fetches information about which turn it is
+     * @return Return true of false depedning on whch players turn it is
+     */
     public boolean getPlayerTurn() {
         return gameRules.getPlayerTurn();
 
     }
 
+    /**
+     * The method checks if a win or draw has occured and sets the game to gameover
+     */
     public void setGameOver() {
         if (gameRules.getWhiteWin()) {
             boardWindow.playWinAnimation(gameRules.getWinningCoordinates(), "White");
@@ -50,11 +67,19 @@ public class LuffaSchackController {
 
     }
 
+    /**
+     * The method handles the events from the menubar 
+     */
     public void eventHandlerMenuAction() {
         newGameWindow.display();
 
     }
 
+    /**
+     * The method handles the events from the clicked cells in the grid 
+     * and paints the circles in the specifik cell.
+     * @param coordinate 
+     */
     public void eventHandlerPlayerMove(Point2D coordinate) {
         if (newGameWindow.getSelectedColor() != null && gameRules.setPlayerMove(coordinate)) {
             boardWindow.addCircle(gameRules.getPlayerColor(), coordinate);
@@ -66,6 +91,9 @@ public class LuffaSchackController {
         }
     }
 
+    /**
+     * The method tells the ai to make a move
+     */
     public void aiMove() {
         Point2D aiMove = new Point2D(0, 0); //WHAT?!
         aiMove = gameRules.SetAIMove();
@@ -74,6 +102,10 @@ public class LuffaSchackController {
         setGameOver();
     }
 
+    /**
+     * The method handels the events from the newGameWindow where users can
+     * adjust settings for the game
+     */
     public void eventHandlerOkButton() {
 
         boardWindow.initView();// SKapar Grafisk spelplan
